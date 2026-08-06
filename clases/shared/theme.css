@@ -1,0 +1,630 @@
+/**
+ * PBS · Intro Análisis de Datos
+ * Shared Reveal.js presentation theme
+ *
+ * Usage (from clases/classN/presentacion.html):
+ *   <link rel="stylesheet" href="../shared/theme.css" />
+ *
+ * Slide skins (add class on <section>):
+ *   (default)     dark text on dark bg via data-background-color
+ *   .skin-light   cream #F5EC91 → dark text #1D1D1B
+ *   .skin-accent  accent #AF1348 → light / yellow accents
+ *
+ * Shared layout classes for cross-class consistency:
+ *   .title-slide + .lead-center   → slide 1
+ *   .agenda-slide                 → slide 2
+ *   .fact-headline / .fact-sub    → dato curioso
+ *   .closing-title / .closing-note
+ * Do not override these sizes with inline styles in presentacion.html.
+ */
+
+:root {
+  --bg-black: #000000;
+  --bg-near: #1D1D1B;
+  --bg-dark: #222222;
+  --bg-mid: #4C4C4C;
+  --bg-muted: #A5A5A5;
+  --accent: #AF1348;
+  --fg-light: #FFFFFF;
+  --yellow-soft: #F5EC91;
+  --yellow: #FFEF01;
+  --fg-dark: #1D1D1B;
+  --font-sans: "DM Sans", sans-serif;
+  --font-display: "Space Grotesk", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Base Reveal                                                                */
+/* -------------------------------------------------------------------------- */
+
+.reveal {
+  font-family: var(--font-sans);
+  font-size: 38px;
+  color: var(--fg-light);
+}
+
+.reveal .slides section {
+  text-align: left;
+  height: 100%;
+  box-sizing: border-box;
+}
+
+.reveal h1,
+.reveal h2,
+.reveal h3 {
+  font-family: var(--font-display);
+  font-weight: 700;
+  text-transform: none;
+  letter-spacing: -0.02em;
+  color: var(--fg-light);
+  margin-bottom: 0.35em;
+}
+
+.reveal h1 { font-size: 2.3em; line-height: 1.05; }
+.reveal h2 { font-size: 1.55em; line-height: 1.1; }
+.reveal h3 { font-size: 1em; color: var(--yellow); }
+
+.reveal p,
+.reveal li {
+  font-weight: 400;
+  line-height: 1.35;
+  font-size: 0.78em;
+}
+
+.reveal .body-text {
+  font-size: 0.75em;
+  max-width: 22em;
+  margin-top: 0.2em;
+}
+
+.reveal .slide-number {
+  font-family: var(--font-display);
+  color: var(--bg-muted);
+  background: transparent;
+  font-size: 14px;
+}
+
+.reveal .progress { color: var(--accent); height: 4px; }
+.reveal .controls { color: var(--accent); }
+
+/* -------------------------------------------------------------------------- */
+/* Code                                                                       */
+/* -------------------------------------------------------------------------- */
+
+.reveal pre {
+  box-shadow: none;
+  margin: 0.55em 0 0;
+  width: 100%;
+  font-size: 0.55em;
+}
+
+.reveal code,
+.reveal pre code,
+.reveal table code {
+  font-family: var(--font-mono);
+  font-weight: 500;
+}
+
+.reveal pre code {
+  padding: 0.85em 1em;
+  background: var(--bg-black);
+  max-height: none;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Eyebrow / lead / quotes                                                    */
+/* -------------------------------------------------------------------------- */
+
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 0.45em;
+  font-family: var(--font-display);
+  font-size: 0.5em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--bg-muted);
+  margin-bottom: 0.9em;
+}
+
+.eyebrow i,
+.eyebrow svg {
+  width: 1.1em;
+  height: 1.1em;
+  color: var(--accent);
+  stroke: var(--accent);
+}
+
+.lead {
+  font-size: 0.85em !important;
+  color: var(--bg-muted);
+  max-width: 20em;
+}
+
+/* Title slide lead: identical across all classes */
+.lead-center {
+  font-size: 0.85em !important;
+  color: var(--bg-muted);
+  max-width: 22em;
+  margin: 0.8em auto 0;
+  text-align: center;
+  line-height: 1.35;
+}
+
+.big-number {
+  font-family: var(--font-display);
+  font-size: 4.2em;
+  font-weight: 700;
+  line-height: 0.9;
+  color: var(--yellow);
+  margin: 0 0 0.15em;
+}
+
+/* Accent "dato curioso" headlines: identical sizing across classes */
+.fact-headline {
+  font-size: 1.2em !important;
+  max-width: 16em;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.2;
+  text-align: center;
+}
+
+.fact-sub {
+  font-size: 0.62em !important;
+  opacity: 0.9;
+  margin: 1em auto 0;
+  max-width: 22em;
+  color: var(--fg-light);
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* Closing slide title + footer */
+.closing-title {
+  font-size: 1.8em !important;
+  line-height: 1.1;
+  text-align: center;
+}
+
+.closing-note {
+  font-size: 0.55em !important;
+  color: var(--bg-muted);
+  margin-top: 1.8em;
+  text-align: center;
+}
+
+.h3-flush {
+  margin-top: 0 !important;
+}
+
+.h3-muted {
+  margin-top: 0 !important;
+  color: var(--bg-muted) !important;
+}
+
+.table-follow {
+  margin-top: 0.7em !important;
+}
+
+.quote {
+  font-size: 1.05em !important;
+  font-weight: 500;
+  max-width: 14em;
+  line-height: 1.25;
+  color: var(--fg-light);
+}
+
+.quote-attr {
+  margin-top: 1em;
+  font-size: 0.55em !important;
+  color: var(--bg-muted);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.hl-yellow { color: var(--yellow); }
+
+.title-icon {
+  width: 1.35em;
+  height: 1.35em;
+  stroke: var(--accent);
+  margin-bottom: 0.55em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Facts                                                                      */
+/* -------------------------------------------------------------------------- */
+
+.fact {
+  display: flex;
+  gap: 0.7em;
+  align-items: flex-start;
+  margin-top: 0.9em;
+  padding: 0.7em 0.9em;
+  border: 1px solid var(--bg-mid);
+  font-size: 0.62em;
+  color: var(--bg-muted);
+  line-height: 1.4;
+}
+
+.fact i,
+.fact svg {
+  width: 1.15em;
+  height: 1.15em;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+  color: var(--yellow);
+  stroke: var(--yellow);
+}
+
+.fact strong {
+  color: var(--yellow);
+  font-weight: 500;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Layout helpers                                                             */
+/* -------------------------------------------------------------------------- */
+
+.center-slide {
+  text-align: center !important;
+  display: flex !important;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.center-slide h1,
+.center-slide h2 { text-align: center; }
+
+.center-slide .eyebrow { justify-content: center; }
+
+/* Title + agenda chrome must match across every class */
+.title-slide .title-icon {
+  width: 1.35em;
+  height: 1.35em;
+  margin-bottom: 0.55em;
+}
+
+.title-slide h1 {
+  font-size: 2.3em;
+  line-height: 1.05;
+  margin-bottom: 0;
+}
+
+.agenda-slide h2 {
+  font-size: 1.55em;
+  line-height: 1.1;
+  margin-bottom: 0.35em;
+}
+
+/* Match spacing of content tables (e.g. class1 “¿Dónde se usa?”) */
+.agenda-slide table {
+  margin-top: 0.7em;
+  font-size: 0.72em;
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.agenda-slide table th,
+.agenda-slide table td {
+  padding: 0.65em 0.85em;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+.agenda-slide table th:nth-child(1),
+.agenda-slide table td.agenda-num,
+.agenda-slide table td:nth-child(1) {
+  width: 1%;
+  white-space: nowrap;
+  text-align: left;
+}
+
+.agenda-slide table th:nth-child(2),
+.agenda-slide table td.icon-cell,
+.agenda-slide table td:nth-child(2) {
+  width: 1%;
+  white-space: nowrap;
+  text-align: center;
+}
+
+.agenda-slide table th:nth-child(3),
+.agenda-slide table td:nth-child(3) {
+  width: auto;
+}
+
+.center-slide .lead {
+  text-align: center;
+  margin-top: 0.6em;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.2em;
+  margin-top: 0.5em;
+}
+
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8em;
+  margin-top: 1em;
+}
+
+.stat-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.8em;
+  margin-top: 1em;
+}
+
+.stat {
+  text-align: center;
+  padding: 0.95em 0.55em;
+  background: var(--bg-dark);
+}
+
+.stat .v {
+  font-family: var(--font-display);
+  font-size: 1.05em;
+  color: var(--yellow);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3em;
+}
+
+.stat .v i,
+.stat .v svg {
+  width: 0.7em;
+  height: 0.7em;
+  stroke: var(--yellow);
+}
+
+.stat .l {
+  font-size: 0.55em !important;
+  color: var(--bg-muted);
+  margin-top: 0.35em;
+  line-height: 1.35;
+}
+
+.agenda-num {
+  font-family: var(--font-display);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Tables                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.reveal table {
+  margin: 0.7em 0 0;
+  border-collapse: collapse;
+  font-size: 0.72em;
+  width: 100%;
+}
+
+.reveal table th,
+.reveal table td {
+  border: 1px solid var(--bg-mid);
+  padding: 0.65em 0.85em;
+  text-align: left;
+  vertical-align: middle;
+  line-height: 1.3;
+}
+
+.reveal table th {
+  background: var(--bg-dark);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--yellow);
+  letter-spacing: 0.02em;
+}
+
+.reveal table td {
+  background: rgba(34, 34, 34, 0.75);
+  color: var(--fg-light);
+}
+
+.reveal table tr:nth-child(even) td {
+  background: rgba(76, 76, 76, 0.35);
+}
+
+/* High contrast on dark cells: yellow, not accent red */
+.reveal table .icon-cell {
+  width: 2.4em;
+  text-align: center;
+  color: var(--yellow);
+}
+
+.reveal table .icon-cell i,
+.reveal table .icon-cell svg {
+  width: 1.25em;
+  height: 1.25em;
+  color: var(--yellow);
+  stroke: var(--yellow);
+}
+
+.reveal table .agenda-num {
+  color: var(--yellow);
+}
+
+.flow-table td:first-child {
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+.df-table th {
+  color: var(--fg-dark) !important;
+  background: rgba(29, 29, 27, 0.14) !important;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Charts                                                                     */
+/* -------------------------------------------------------------------------- */
+
+.chart-box {
+  width: 100%;
+  height: 380px;
+  margin-top: 0.4em;
+  position: relative;
+}
+
+.chart-box canvas,
+.chart-box .js-plotly-plot,
+.chart-box .plotly,
+.chart-box > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.chart-title {
+  font-family: var(--font-display);
+  font-size: 0.72em;
+  font-weight: 700;
+  color: var(--fg-light);
+  margin: 0 0 0.45em;
+}
+
+.chart-caption {
+  font-family: var(--font-display);
+  font-size: 0.55em !important;
+  color: var(--bg-muted);
+  margin-top: 0.35em;
+}
+
+/* -------------------------------------------------------------------------- */
+/* Skin: accent (#AF1348)                                                     */
+/* -------------------------------------------------------------------------- */
+
+.skin-accent .eyebrow {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.skin-accent .eyebrow i,
+.skin-accent .eyebrow svg {
+  color: var(--yellow);
+  stroke: var(--yellow);
+}
+
+.skin-accent .icon-cell,
+.skin-accent .icon-cell i,
+.skin-accent .icon-cell svg,
+.skin-accent .fact i,
+.skin-accent .fact svg,
+.skin-accent .title-icon {
+  color: var(--yellow) !important;
+  stroke: var(--yellow) !important;
+}
+
+.skin-accent .agenda-num,
+.skin-accent .fact strong,
+.skin-accent .hl-yellow {
+  color: var(--yellow) !important;
+}
+
+.skin-accent table th {
+  background: rgba(0, 0, 0, 0.3);
+  color: var(--yellow) !important;
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.skin-accent table td {
+  background: rgba(0, 0, 0, 0.18);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: var(--fg-light) !important;
+}
+
+.skin-accent .title-icon {
+  stroke: var(--yellow);
+}
+
+/* -------------------------------------------------------------------------- */
+/* Skin: light (#F5EC91)                                                      */
+/* -------------------------------------------------------------------------- */
+
+.skin-light,
+.skin-light h1,
+.skin-light h2,
+.skin-light h3,
+.skin-light p,
+.skin-light li,
+.skin-light td,
+.skin-light th,
+.skin-light .lead,
+.skin-light .body-text,
+.skin-light .fact,
+.skin-light .fact div,
+.skin-light .agenda-num,
+.skin-light code,
+.skin-light .chart-title {
+  color: var(--fg-dark) !important;
+}
+
+.skin-light .eyebrow {
+  color: #4C4C4C !important;
+}
+
+.skin-light .eyebrow i,
+.skin-light .eyebrow svg,
+.skin-light .fact i,
+.skin-light .fact svg,
+.skin-light .title-icon,
+.skin-light table .icon-cell,
+.skin-light table .icon-cell i,
+.skin-light table .icon-cell svg {
+  color: var(--accent) !important;
+  stroke: var(--accent) !important;
+}
+
+.skin-light h3,
+.skin-light .fact strong,
+.skin-light .hl-yellow,
+.skin-light .agenda-num,
+.skin-light table .agenda-num,
+.skin-light .flow-table td:first-child {
+  color: var(--accent) !important;
+}
+
+.skin-light .fact {
+  border-color: rgba(29, 29, 27, 0.25);
+  background: rgba(29, 29, 27, 0.06);
+  color: var(--fg-dark) !important;
+}
+
+.skin-light .lead {
+  color: var(--fg-dark) !important;
+  opacity: 0.85;
+}
+
+.skin-light table th {
+  background: rgba(29, 29, 27, 0.14) !important;
+  color: var(--fg-dark) !important;
+  border-color: rgba(29, 29, 27, 0.28) !important;
+}
+
+.skin-light table td {
+  background: rgba(255, 255, 255, 0.55) !important;
+  color: var(--fg-dark) !important;
+  border-color: rgba(29, 29, 27, 0.28) !important;
+}
+
+.skin-light table tr:nth-child(even) td {
+  background: rgba(29, 29, 27, 0.1) !important;
+}
+
+.skin-light .df-table th {
+  background: rgba(29, 29, 27, 0.18) !important;
+  color: var(--fg-dark) !important;
+}

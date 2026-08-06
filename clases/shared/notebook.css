@@ -1,0 +1,132 @@
+/**
+ * PBS notebook chrome (injected into code.ipynb via HTML).
+ * Mirrors clases/shared/theme.css tokens.
+ */
+:root {
+  --pbs-black: #000000;
+  --pbs-near: #1D1D1B;
+  --pbs-dark: #222222;
+  --pbs-mid: #4C4C4C;
+  --pbs-muted: #A5A5A5;
+  --pbs-accent: #AF1348;
+  --pbs-cream: #F5EC91;
+  --pbs-yellow: #FFEF01;
+  --pbs-fg: #FFFFFF;
+  --pbs-fg-dark: #1D1D1B;
+}
+
+/* Soften notebook chrome when theme allows */
+.pbs-hero {
+  background: var(--pbs-black);
+  color: var(--pbs-fg);
+  padding: 1.6rem 1.4rem;
+  margin: 0 0 1rem;
+  border-left: 6px solid var(--pbs-accent);
+  font-family: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+}
+
+.pbs-hero .eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--pbs-muted);
+  margin: 0 0 0.55rem;
+}
+
+.pbs-hero h1 {
+  font-size: 1.85rem;
+  line-height: 1.1;
+  margin: 0 0 0.45rem;
+  font-weight: 700;
+  color: var(--pbs-fg);
+}
+
+.pbs-hero .lead {
+  margin: 0;
+  color: var(--pbs-muted);
+  font-size: 0.98rem;
+}
+
+.pbs-section {
+  background: var(--pbs-near);
+  color: var(--pbs-fg);
+  padding: 0.85rem 1rem;
+  margin: 1.25rem 0 0.65rem;
+  border-left: 5px solid var(--pbs-yellow);
+  font-family: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+}
+
+.pbs-section .num {
+  color: var(--pbs-yellow);
+  font-weight: 700;
+  margin-right: 0.45rem;
+}
+
+.pbs-section h2 {
+  display: inline;
+  margin: 0;
+  font-size: 1.15rem;
+  color: var(--pbs-fg);
+  font-weight: 700;
+}
+
+.pbs-section.light {
+  background: var(--pbs-cream);
+  color: var(--pbs-fg-dark);
+  border-left-color: var(--pbs-accent);
+}
+
+.pbs-section.light .num,
+.pbs-section.light h2 {
+  color: var(--pbs-fg-dark);
+}
+
+.pbs-section.light .num {
+  color: var(--pbs-accent);
+}
+
+.pbs-section.accent {
+  background: var(--pbs-accent);
+  border-left-color: var(--pbs-yellow);
+}
+
+.pbs-section.accent .num {
+  color: var(--pbs-yellow);
+}
+
+.pbs-tip {
+  border: 1px solid var(--pbs-mid);
+  background: var(--pbs-dark);
+  color: var(--pbs-muted);
+  padding: 0.75rem 0.9rem;
+  margin: 0.5rem 0 0.9rem;
+  font-size: 0.92rem;
+  font-family: "DM Sans", system-ui, sans-serif;
+}
+
+.pbs-tip strong {
+  color: var(--pbs-yellow);
+  font-weight: 600;
+}
+
+.pbs-tip.light {
+  background: rgba(29, 29, 27, 0.06);
+  border-color: rgba(29, 29, 27, 0.25);
+  color: var(--pbs-fg-dark);
+}
+
+.pbs-tip.light strong {
+  color: var(--pbs-accent);
+}
+
+.pbs-break {
+  background: var(--pbs-cream);
+  color: var(--pbs-fg-dark);
+  text-align: center;
+  padding: 1.2rem;
+  margin: 1.2rem 0;
+  font-family: "Space Grotesk", "DM Sans", system-ui, sans-serif;
+  font-weight: 700;
+  font-size: 1.1rem;
+  border-left: 5px solid var(--pbs-accent);
+}

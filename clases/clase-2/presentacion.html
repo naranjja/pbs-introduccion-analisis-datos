@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>02 · Introducción al Análisis de Datos con Pandas</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section data-background-color="#000000" class="center-slide title-slide">
+        <i data-lucide="table-2" class="title-icon"></i>
+        <p class="eyebrow"><i data-lucide="graduation-cap"></i> Programa Ejecutivo en Data Science</p>
+        <h1>Análisis de Datos<br />con Pandas</h1>
+        <p class="lead-center">
+          Sesión 2 · De tablas crudas a insights accionables
+        </p>
+      </section>
+
+      <section data-background-color="#1D1D1B" class="agenda-slide">
+        <p class="eyebrow"><i data-lucide="list"></i> Hoy veremos</p>
+        <h2>Agenda</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Tema</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="library"></i></td><td>Introducción a Pandas (y NumPy)</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="file-input"></i></td><td>Lectura de archivos de datos</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="mouse-pointer-click"></i></td><td>Selecciones</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="wand-2"></i></td><td>Transformaciones</td></tr>
+            <tr><td class="agenda-num">05</td><td class="icon-cell"><i data-lucide="filter"></i></td><td>Filtros</td></tr>
+            <tr><td class="agenda-num">06</td><td class="icon-cell"><i data-lucide="group"></i></td><td>Agrupaciones</td></tr>
+            <tr><td class="agenda-num">07</td><td class="icon-cell"><i data-lucide="dumbbell"></i></td><td>Ejercicios</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="info"></i> Fundamentos</p>
+        <h2>¿Qué es Pandas?</h2>
+        <p class="body-text">
+          Biblioteca en Python para el tratamiento de <strong>Panel Data</strong>: tablas etiquetadas, limpieza, agregación y análisis.
+        </p>
+        <table>
+          <thead>
+            <tr><th></th><th>Atributo</th><th>Detalle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="unlock"></i></td><td>Open source</td><td>Comunidad activa y licencia permisiva</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="plug"></i></td><td>API estándar DS</td><td>Integrable con NumPy, Matplotlib, scikit-learn</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="scaling"></i></td><td>Escalable</td><td>De CSVs locales a datasets grandes</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="briefcase"></i> Múltiples casos de uso</p>
+        <h2>¿Para qué sirve?</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Caso</th><th>Qué haces</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="trending-up"></i></td><td>Stocks (TSA)</td><td>Series de tiempo, retornos, ventanas móviles</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="shopping-cart"></i></td><td>Ventas (AGG)</td><td>Agregaciones por canal, región, campaña</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="heart-pulse"></i></td><td>Salud (LG)</td><td>Cohortes, indicadores, seguimiento temporal</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="users"></i></td><td>Clientes</td><td>Segmentación RFM, churn, lifetime value</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="pie-chart"></i>
+          <div><strong>En la práctica:</strong> Pandas simplifica estadística descriptiva, limpieza y preparación: el 80% del trabajo antes del modelo.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#AF1348" class="skin-accent center-slide">
+        <p class="eyebrow"><i data-lucide="lightbulb"></i> Dato curioso</p>
+        <p class="big-number">2008</p>
+        <h2 class="fact-headline">
+          Wes McKinney creó Pandas mientras trabajaba en AQR Capital para analizar datos financieros.
+        </h2>
+        <p class="fact-sub">
+          El nombre viene de <em>Panel Data</em>, y también de “pandas”, porque son lindos. Hoy es una de las librerías más descargadas de PyPI.
+        </p>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="cpu"></i> La base numérica</p>
+        <h2>¿Qué es NumPy?</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Idea</th><th>Detalle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="grid-3x3"></i></td><td>Arrays</td><td>Arreglos n-dimensionales tipados</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="sigma"></i></td><td>Matrices</td><td>Operaciones vectorizadas, sin loops Python</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="gauge"></i></td><td>Eficiencia</td><td>C bajo el capó: órdenes de magnitud más rápido</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="network"></i></td><td>Ecosistema</td><td>Base de Pandas, SciPy, Matplotlib, scikit-learn</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="git-compare"></i> Por qué importa</p>
+        <h2>Listas vs arrays</h2>
+        <div class="grid-2">
+          <div>
+            <h3 class="h3-muted">Python vanilla</h3>
+            <pre><code class="language-python" data-trim>
+resultado = []
+for i in range(len(l1)):
+    resultado.append(l1[i] + l2[i])
+            </code></pre>
+          </div>
+          <div>
+            <h3 class="h3-flush">NumPy</h3>
+            <pre><code class="language-python" data-trim>
+a1 + a2
+# vectorizado, tipado, rápido
+            </code></pre>
+          </div>
+        </div>
+        <div class="fact">
+          <i data-lucide="zap"></i>
+          <div><strong>Fun fact:</strong> Un array NumPy de 1M de enteros puede usar ~4× menos memoria que una lista Python equivalente, y operar 10-100× más rápido.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="gauge"></i> Benchmark relativo</p>
+        <h2>Velocidad: List vs NumPy</h2>
+        <p class="chart-title">Tiempo relativo (loop de lista = 1×)</p>
+        <div class="chart-box">
+          <canvas id="chart-numpy-speed"></canvas>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="thumbs-up"></i> Ventajas</p>
+        <h2>¿Por qué Pandas?</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Capacidad</th><th>Qué ganas</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="table"></i></td><td>DataFrames</td><td>Tablas con etiquetas en filas y columnas</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="move"></i></td><td>Manipulación</td><td>Select, filter, join, reshape</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="plug-zap"></i></td><td>Integraciones</td><td>CSV, Excel, SQL, Parquet, APIs</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="sparkles"></i></td><td>Limpieza</td><td>Nulos, tipos, duplicados, fechas</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="clock"></i></td><td>Series de tiempo</td><td>Resample, shift, rolling</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="rocket"></i></td><td>Performance</td><td>Vectorización + NumPy por debajo</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="layout-grid"></i> Modelo mental</p>
+        <h2>Series y DataFrames</h2>
+        <p class="body-text">
+          Una <strong>Serie</strong> es una columna etiquetada.
+          Un <strong>DataFrame</strong> es Serie + Serie + … alineadas por índice.
+        </p>
+        <table class="df-table">
+          <thead>
+            <tr><th>índice</th><th>nombre</th><th>edad</th><th>ciudad</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>0</td><td>jose</td><td>32</td><td>medellín</td></tr>
+            <tr><td>1</td><td>juan</td><td>10</td><td>medellín</td></tr>
+          </tbody>
+        </table>
+        <table>
+          <thead>
+            <tr><th>Eje</th><th>Nombre</th><th>Qué representa</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">0</td><td>Filas (rows)</td><td>Observaciones / registros</td></tr>
+            <tr><td class="agenda-num">1</td><td>Columnas</td><td>Variables / campos</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="route"></i> Metodología del taller</p>
+        <h2>Flujo de análisis</h2>
+        <table class="flow-table">
+          <thead>
+            <tr><th>Paso</th><th></th><th>Acción</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1. Leer</td><td class="icon-cell"><i data-lucide="file-input"></i></td><td>Cargar CSV / fuente</td></tr>
+            <tr><td>2. Explorar</td><td class="icon-cell"><i data-lucide="search"></i></td><td>head, info, describe</td></tr>
+            <tr><td>3. Seleccionar</td><td class="icon-cell"><i data-lucide="mouse-pointer-click"></i></td><td>Columnas y filas relevantes</td></tr>
+            <tr><td>4. Filtrar</td><td class="icon-cell"><i data-lucide="filter"></i></td><td>Condiciones de negocio</td></tr>
+            <tr><td>5. Transformar</td><td class="icon-cell"><i data-lucide="wand-2"></i></td><td>Fechas, columnas nuevas, merges</td></tr>
+            <tr><td>6. Agrupar</td><td class="icon-cell"><i data-lucide="group"></i></td><td>Aggregations</td></tr>
+            <tr><td>7. Insight</td><td class="icon-cell"><i data-lucide="lightbulb"></i></td><td>Decisión / comunicación</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="database"></i>
+          <div><strong>Hoy:</strong> dataset COVID Italia + países + ventas (RFM). Caso de uso empresarial al final.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="line-chart"></i> Dataset COVID Italia</p>
+        <h2>Casos nuevos · 2020</h2>
+        <p class="chart-title">Mock: new_cases mensuales (Italia)</p>
+        <div class="chart-box" id="plotly-covid"></div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="file-input"></i> Bloque 02</p>
+        <h2>Lectura de archivos</h2>
+        <pre><code class="language-python" data-trim>
+import pandas as pd
+
+df = pd.read_csv("italy.csv")
+df.head()
+df.info()
+df.describe()
+df.shape          # (filas, columnas)
+        </code></pre>
+        <div class="fact">
+          <i data-lucide="calendar-clock"></i>
+          <div><strong>Tip:</strong> siempre revisa <code>dtypes</code>, nulos y un preview antes de transformar. <code>pd.to_datetime()</code> es tu amigo con fechas.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="mouse-pointer-click"></i> Bloque 03</p>
+        <h2>Selecciones</h2>
+        <table>
+          <thead>
+            <tr><th>Objetivo</th><th>Código</th><th>Notas</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Una columna (Serie)</td><td><code>df["new_deaths"]</code></td><td>Retorna Serie</td></tr>
+            <tr><td>Varias columnas</td><td><code>df[["date", "new_cases"]]</code></td><td>Doble corchete → DataFrame</td></tr>
+            <tr><td>Fila por etiqueta</td><td><code>df.loc[100]</code></td><td>Usa el índice</td></tr>
+            <tr><td>Fila por posición</td><td><code>df.iloc[0]</code></td><td>Posición 0, 1, 2…</td></tr>
+            <tr><td>Celda / subset</td><td><code>df.loc[100, ["date", "new_deaths"]]</code></td><td>Fila + columnas</td></tr>
+            <tr><td>Preview</td><td><code>df.head(3)</code> / <code>df.tail(5)</code></td><td>Primeras / últimas</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="bookmark"></i>
+          <div><strong>loc vs iloc:</strong> <code>loc</code> = etiquetas. <code>iloc</code> = posición entera. Confundirlos genera bugs tras un <code>reset_index</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="filter"></i> Bloque 04</p>
+        <h2>Filtros</h2>
+        <table>
+          <thead>
+            <tr><th>Operador</th><th>Significado</th><th>Ejemplo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>&amp;</code></td><td>AND (ambas)</td><td><code>(a &gt; 5) &amp; (b &lt; 10)</code></td></tr>
+            <tr><td><code>|</code></td><td>OR (alguna)</td><td><code>(a &gt; 5) | (b &lt; 10)</code></td></tr>
+            <tr><td><code>~</code></td><td>NOT (niega)</td><td><code>~df["vip"]</code></td></tr>
+          </tbody>
+        </table>
+        <pre><code class="language-python" data-trim>
+df[df["new_deaths"] > 500]
+
+df[(df["new_deaths"] > 500) & (df["new_cases"] > 5000)]
+# Siempre paréntesis en condiciones compuestas
+        </code></pre>
+        <div class="fact">
+          <i data-lucide="alert-triangle"></i>
+          <div><strong>No uses <code>and</code>/<code>or</code></strong> entre Series de Pandas: usa <code>&amp;</code> / <code>|</code> con paréntesis.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="wand-2"></i> Bloque 05</p>
+        <h2>Transformaciones</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Operación</th><th>Ejemplo</th><th>Para qué</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="plus"></i></td><td>Columnas derivadas</td><td><code>df["pct"] = df["new_cases"] / pop</code></td><td>Métricas de negocio</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="binary"></i></td><td>Casting</td><td><code>df["x"].astype(int)</code></td><td>Tipos correctos</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="calendar"></i></td><td>Fechas</td><td><code>pd.to_datetime</code> + <code>.dt.month</code></td><td>Series de tiempo</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="arrow-up-down"></i></td><td>Orden y joins</td><td><code>sort_values</code>, <code>merge</code></td><td>Cruzar tablas</td></tr>
+          </tbody>
+        </table>
+        <pre><code class="language-python" data-trim>
+df["date"] = pd.to_datetime(df["date"])
+df["month"] = df["date"].dt.month
+        </code></pre>
+      </section>
+
+      <section data-background-color="#AF1348" class="skin-accent">
+        <p class="eyebrow"><i data-lucide="group"></i> Bloque 06</p>
+        <h2>Agrupaciones</h2>
+        <pre><code class="language-python" data-trim>
+df.groupby(["year", "month"]).agg({
+    "new_cases": "sum",
+    "new_deaths": "mean",
+    "new_tests": "count",
+}).reset_index()
+        </code></pre>
+        <table class="table-follow">
+          <thead>
+            <tr><th>agg</th><th>Significado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>"sum"</code></td><td>Total del grupo</td></tr>
+            <tr><td><code>"mean"</code></td><td>Promedio</td></tr>
+            <tr><td><code>"count"</code></td><td>Filas no nulas</td></tr>
+            <tr><td><code>"max"</code> / <code>"min"</code></td><td>Extremos</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="workflow"></i>
+          <div><strong>Idea clave:</strong> partir → aplicar → combinar (split-apply-combine). El corazón del análisis tabular.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="store"></i> Caso de negocio</p>
+        <h2>Segmentación RFM</h2>
+        <table>
+          <thead>
+            <tr><th>Letra</th><th></th><th>Dimensión</th><th>Pregunta</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">R</td><td class="icon-cell"><i data-lucide="clock"></i></td><td>Recencia</td><td>¿Cuándo compró por última vez?</td></tr>
+            <tr><td class="agenda-num">F</td><td class="icon-cell"><i data-lucide="repeat"></i></td><td>Frecuencia</td><td>¿Cuántas veces compra?</td></tr>
+            <tr><td class="agenda-num">M</td><td class="icon-cell"><i data-lucide="banknote"></i></td><td>Monto</td><td>¿Cuánto gasta en total?</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="mail"></i>
+          <div><strong>Insight:</strong> scores 1-4 por cuartiles → RFM compuesto → campañas distintas para champions vs en riesgo.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="pie-chart"></i> Distribución RFM</p>
+        <h2>Scores compuestos</h2>
+        <p class="chart-title">Conteo de clientes por score RFM (3-12)</p>
+        <div class="chart-box">
+          <canvas id="chart-rfm"></canvas>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="dumbbell"></i> Bloque 07 · Práctica</p>
+        <h2>Ejercicios · países</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th>Pregunta</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td>¿Cuántos países hay?</td></tr>
+            <tr><td class="agenda-num">02</td><td>¿Cuántos continentes?</td></tr>
+            <tr><td class="agenda-num">03</td><td>Población total y por continente</td></tr>
+            <tr><td class="agenda-num">04</td><td>Top 10 países por población</td></tr>
+            <tr><td class="agenda-num">05</td><td>Columna GDP total (población × GDP per cápita)</td></tr>
+            <tr><td class="agenda-num">06</td><td>Top 10 menor GDP per cápita con población &gt; 20M</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="bar-chart-3"></i> Bonus</p>
+        <h2>Visualización rápida</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Herramienta</th><th>Uso típico</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="line-chart"></i></td><td>matplotlib</td><td>Base de gráficos en Python</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="palette"></i></td><td>seaborn</td><td>Estilos y plots estadísticos</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="table"></i></td><td>df.plot()</td><td>Atajo directo desde Pandas</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="chart-no-axes-combined"></i></td><td>Tipos</td><td>line · bar · hist · scatter · heatmap</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="focus"></i>
+          <div><strong>Regla:</strong> un gráfico = una pregunta. Etiqueta ejes y elige el tipo según la relación que quieras mostrar.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000" class="center-slide">
+        <i data-lucide="circle-check" class="title-icon"></i>
+        <p class="eyebrow"><i data-lucide="flag"></i> Cierre</p>
+        <h1 class="closing-title">De datos a<br />decisiones</h1>
+        <p class="lead-center">
+          Leer · filtrar · transformar · agrupar · comunicar
+        </p>
+        <p class="closing-note">
+          Preguntas · chat grupal · contacto del profesor
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js@2.35.2/dist/plotly.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    const chartDark = {
+      bg: "#1D1D1B",
+      grid: "#4C4C4C",
+      tick: "#A5A5A5",
+      accent: "#AF1348",
+      yellow: "#FFEF01",
+      mid: "#4C4C4C",
+      muted: "#A5A5A5",
+    };
+
+    let chartNumpy = null;
+    let chartRfm = null;
+
+    function initNumpyChart() {
+      const el = document.getElementById("chart-numpy-speed");
+      if (!el || chartNumpy) return;
+      chartNumpy = new Chart(el, {
+        type: "bar",
+        data: {
+          labels: ["List loop", "NumPy"],
+          datasets: [{
+            label: "Velocidad relativa",
+            data: [1, 40],
+            backgroundColor: [chartDark.accent, chartDark.yellow],
+            borderWidth: 0,
+            borderRadius: 4,
+            barPercentage: 0.55,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: (ctx) => ctx.parsed.y + "×",
+              },
+            },
+          },
+          scales: {
+            x: {
+              ticks: { color: chartDark.tick, font: { family: "Space Grotesk", size: 14 } },
+              grid: { display: false },
+            },
+            y: {
+              beginAtZero: true,
+              title: {
+                display: true,
+                text: "Velocidad relativa (×)",
+                color: chartDark.tick,
+                font: { family: "Space Grotesk", size: 13 },
+              },
+              ticks: { color: chartDark.tick, font: { family: "DM Sans", size: 12 } },
+              grid: { color: "rgba(76, 76, 76, 0.45)" },
+            },
+          },
+        },
+      });
+    }
+
+    function initRfmChart() {
+      const el = document.getElementById("chart-rfm");
+      if (!el || chartRfm) return;
+      const scores = ["3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
+      const counts = [42, 88, 145, 210, 268, 312, 245, 178, 95, 38];
+      const palette = [
+        chartDark.accent, chartDark.yellow, chartDark.mid, chartDark.muted,
+        chartDark.accent, chartDark.yellow, chartDark.mid, chartDark.muted,
+        chartDark.accent, chartDark.yellow,
+      ];
+      chartRfm = new Chart(el, {
+        type: "doughnut",
+        data: {
+          labels: scores.map((s) => "Score " + s),
+          datasets: [{
+            data: counts,
+            backgroundColor: palette,
+            borderColor: "#000000",
+            borderWidth: 2,
+          }],
+        },
+        options: {
+          responsive: true,
+          maintainAspectRatio: false,
+          cutout: "52%",
+          plugins: {
+            legend: {
+              position: "right",
+              labels: {
+                color: chartDark.tick,
+                font: { family: "DM Sans", size: 12 },
+                boxWidth: 14,
+                padding: 10,
+              },
+            },
+          },
+        },
+      });
+    }
+
+    function initCovidPlot() {
+      const el = document.getElementById("plotly-covid");
+      if (!el || el.dataset.ready) return;
+      const months = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+      const newCases = [0, 850, 105000, 98000, 28000, 7500, 6500, 14000, 45000, 320000, 580000, 450000];
+      Plotly.newPlot(el, [{
+        x: months,
+        y: newCases,
+        type: "scatter",
+        mode: "lines+markers",
+        line: { color: chartDark.accent, width: 3 },
+        marker: { color: chartDark.yellow, size: 8 },
+        hovertemplate: "%{x}: %{y:,}<extra></extra>",
+      }], {
+        paper_bgcolor: "#000000",
+        plot_bgcolor: "#000000",
+        margin: { t: 20, r: 30, b: 50, l: 70 },
+        font: { family: "DM Sans, sans-serif", color: chartDark.tick },
+        xaxis: {
+          title: { text: "2020", font: { family: "Space Grotesk", color: chartDark.tick } },
+          gridcolor: "rgba(76, 76, 76, 0.4)",
+          zeroline: false,
+          tickfont: { family: "Space Grotesk" },
+        },
+        yaxis: {
+          title: { text: "new_cases", font: { family: "Space Grotesk", color: chartDark.tick } },
+          gridcolor: "rgba(76, 76, 76, 0.4)",
+          zeroline: false,
+          tickformat: "~s",
+        },
+      }, { displayModeBar: false, responsive: true });
+      el.dataset.ready = "1";
+    }
+
+    function resizeCharts() {
+      if (chartNumpy) chartNumpy.resize();
+      if (chartRfm) chartRfm.resize();
+      const covid = document.getElementById("plotly-covid");
+      if (covid && covid.dataset.ready) Plotly.Plots.resize(covid);
+    }
+
+    Reveal.initialize({
+      hash: true,
+      slideNumber: "c/t",
+      transition: "fade",
+      backgroundTransition: "fade",
+      width: 1280,
+      height: 720,
+      margin: 0.08,
+      controls: true,
+      progress: true,
+      center: false,
+      plugins: [RevealHighlight],
+    }).then(() => {
+      lucide.createIcons();
+      initNumpyChart();
+      initCovidPlot();
+      initRfmChart();
+      resizeCharts();
+
+      Reveal.on("slidechanged", () => {
+        lucide.createIcons();
+        resizeCharts();
+      });
+    });
+  </script>
+</body>
+</html>

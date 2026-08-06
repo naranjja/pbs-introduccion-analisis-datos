@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>01 · Introducción a Python</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/monokai.css" />
+  <link rel="stylesheet" href="../shared/theme.css" />
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+      <section data-background-color="#000000" class="center-slide title-slide">
+        <i data-lucide="terminal" class="title-icon"></i>
+        <p class="eyebrow"><i data-lucide="graduation-cap"></i> Programa Ejecutivo en Data Science</p>
+        <h1>Introducción<br />a Python</h1>
+        <p class="lead-center">
+          Sesión 1 · Taller práctico de fundamentos para el análisis de datos
+        </p>
+      </section>
+
+      <section data-background-color="#1D1D1B" class="agenda-slide">
+        <p class="eyebrow"><i data-lucide="list"></i> Hoy veremos</p>
+        <h2>Agenda</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Tema</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="sparkles"></i></td><td>¿Por qué Python?</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="shapes"></i></td><td>Tipos de datos</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="calculator"></i></td><td>Operadores</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="boxes"></i></td><td>Contenedores de datos</td></tr>
+            <tr><td class="agenda-num">05</td><td class="icon-cell"><i data-lucide="git-branch"></i></td><td>Flujos de control</td></tr>
+            <tr><td class="agenda-num">06</td><td class="icon-cell"><i data-lucide="function-square"></i></td><td>Funciones</td></tr>
+            <tr><td class="agenda-num">07</td><td class="icon-cell"><i data-lucide="dumbbell"></i></td><td>Ejercicios</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="info"></i> Fundamentos</p>
+        <h2>¿Qué es Python?</h2>
+        <p class="body-text">
+          Lenguaje de programación <strong>interpretado</strong>, diseñado para múltiples casos de uso, con énfasis en legibilidad.
+        </p>
+        <table>
+          <thead>
+            <tr><th></th><th>Atributo</th><th>Detalle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="smile"></i></td><td>Beginner-friendly</td><td>Sintaxis cercana al lenguaje natural</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="globe"></i></td><td>Open source</td><td>Comunidad global y licencia permisiva</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="package"></i></td><td>Ecosistema</td><td>Cientos de miles de bibliotecas en PyPI</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="map"></i> Diseñado para múltiples casos de uso</p>
+        <h2>¿Dónde se usa?</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Dominio</th><th>Ejemplos</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="agenda-num">01</td>
+              <td class="icon-cell"><i data-lucide="globe-2"></i></td>
+              <td>Aplicaciones web</td>
+              <td>Django, FastAPI, Flask (Instagram, Spotify, Netflix)</td>
+            </tr>
+            <tr>
+              <td class="agenda-num">02</td>
+              <td class="icon-cell"><i data-lucide="monitor"></i></td>
+              <td>Apps de escritorio</td>
+              <td>Automatización, scripts internos, GUIs</td>
+            </tr>
+            <tr>
+              <td class="agenda-num">03</td>
+              <td class="icon-cell"><i data-lucide="database"></i></td>
+              <td>Análisis de Big Data</td>
+              <td>Pandas, Polars, PySpark (CSV a petabytes)</td>
+            </tr>
+            <tr>
+              <td class="agenda-num">04</td>
+              <td class="icon-cell"><i data-lucide="brain"></i></td>
+              <td>Machine Learning</td>
+              <td>scikit-learn, PyTorch, TensorFlow</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="bar-chart-3"></i> Gráfico · Chart.js</p>
+        <h2>Uso estimado por dominio</h2>
+        <div class="chart-box">
+          <canvas id="chartDomains"></canvas>
+        </div>
+        <p class="chart-caption">Ilustrativo (no es un censo oficial). Muestra la amplitud de Python en la industria.</p>
+      </section>
+
+      <section data-background-color="#AF1348" class="skin-accent center-slide">
+        <p class="eyebrow"><i data-lucide="lightbulb"></i> Dato curioso</p>
+        <p class="big-number">#1</p>
+        <h2 class="fact-headline">
+          Python es el lenguaje más usado en Stack Overflow desde 2022, y lidera también el índice TIOBE en 2024-2025.
+        </h2>
+        <p class="fact-sub">
+          No es solo popularidad: es el puente entre negocio, ciencia e ingeniería.
+        </p>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="trending-up"></i> Gráfico · Plotly</p>
+        <h2>Popularidad TIOBE (índice)</h2>
+        <div class="chart-box" id="plotlyTiobe"></div>
+        <p class="chart-caption">Valores aproximados del índice TIOBE 2015-2025. Tendencia al alza sostenida.</p>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="book-open"></i> Orígenes</p>
+        <h2>Historia de Python</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Hecho</th><th>Detalle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="calendar"></i></td><td>1991</td><td>Primera versión pública (Python 0.9)</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="user"></i></td><td>Guido van Rossum</td><td>Países Bajos; proyecto de hobby en Navidad 1989</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="quote"></i></td><td>Slogan</td><td>“Computer Programming for Everybody”</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="crown"></i></td><td>BDFL → Steering Council</td><td>Hoy lo gobierna un consejo electo (PEP 13)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="history"></i> Línea de influencia</p>
+        <h2>De Fortran a Python</h2>
+        <table>
+          <thead>
+            <tr><th>Año</th><th>Lenguaje</th><th>Rol</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>1957</td><td>Fortran</td><td>Cómputo científico temprano</td></tr>
+            <tr><td>1965</td><td>ALGOL</td><td>Estructura y bloques</td></tr>
+            <tr><td>1969</td><td>SETL</td><td>Expresividad de alto nivel</td></tr>
+            <tr><td>1987</td><td>ABC</td><td>Legibilidad (influencia directa)</td></tr>
+            <tr><td><strong class="hl-yellow">1991</strong></td><td><strong class="hl-yellow">Python</strong></td><td>Práctico, accesible, comunitario</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="clapperboard"></i>
+          <div><strong>Fun fact:</strong> Van Rossum nombró el lenguaje por <em>Monty Python’s Flying Circus</em> (1969), no por la serpiente. Quería algo experimental, creativo, diverso y fácil de recordar.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="fingerprint"></i> Identidad del lenguaje</p>
+        <h2>Características</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Característica</th><th>Qué implica</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="layers"></i></td><td>Alto nivel</td><td>Abstrae la máquina; piensas en el problema</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="zap"></i></td><td>Dinámicamente tipado</td><td>Tipos en tiempo de ejecución</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="play"></i></td><td>Interpretado</td><td>Ideal para exploración</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="waypoints"></i></td><td>Multiparadigma</td><td>Imperativo, OOP, funcional</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="unlock"></i></td><td>Open source</td><td>~140k+ paquetes en PyPI</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="laptop"></i></td><td>Multiplataforma</td><td>Windows, macOS, Linux, cloud</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="target"></i> Para este curso</p>
+        <h2>¿Por qué Python?</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Razón</th><th>Beneficio en clase</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="text"></i></td><td>Sintaxis natural</td><td>Menos fricción al aprender</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="bar-chart-3"></i></td><td>Ecosistema de datos</td><td>Pandas y NumPy listos</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="flask-conical"></i></td><td>Prototipado rápido</td><td>Validar hipótesis en minutos</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="rocket"></i></td><td>Transferible a producción</td><td>APIs y pipelines</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="notebook-pen"></i>
+          <div><strong>En clase:</strong> usaremos Jupyter / Google Colab. El código no es production-ready: priorizamos claridad y exploración.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000" class="center-slide">
+        <p class="eyebrow"><i data-lucide="quote"></i> import this</p>
+        <p class="quote">“Beautiful is better than ugly.<br />Explicit is better than implicit.<br />Simple is better than complex.”</p>
+        <p class="quote-attr">The Zen of Python · Tim Peters</p>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="shapes"></i> Bloque 02</p>
+        <h2>Tipos de datos</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Familia</th><th>Tipos</th><th>Ejemplo</th><th>Uso típico</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="hash"></i></td><td>Números</td><td>int · float · complex</td><td><code>10</code> · <code>23.3</code></td><td>Conteos, montos, ratios</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="toggle-left"></i></td><td>Booleanos</td><td>True · False</td><td><code>edad &gt;= 18</code></td><td>Decisiones y filtros</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="type"></i></td><td>Texto</td><td>str</td><td><code>"hola"</code></td><td>Nombres, códigos, mensajes</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="circle-off"></i></td><td>Vacío</td><td>None</td><td><code>alumno = None</code></td><td>Ausencia intencional de valor</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="case-sensitive"></i>
+          <div><strong>Tip:</strong> Python es <em>case-sensitive</em>. <code>x</code> y <code>X</code> son variables distintas. Usa <code>snake_case</code>. Constantes en <code>MAYUSCULAS</code> (ej. <code>IGV = 0.18</code>).</div>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="shuffle"></i> Casting</p>
+        <h2>Convertir entre tipos</h2>
+        <table>
+          <thead>
+            <tr><th>De</th><th>A</th><th>Código</th><th>Resultado</th><th>Cuidado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>int</td><td>float</td><td><code>float(10)</code></td><td><code>10.0</code></td><td>Siempre seguro</td></tr>
+            <tr><td>float</td><td>int</td><td><code>int(99.9)</code></td><td><code>99</code></td><td>Trunca, no redondea</td></tr>
+            <tr><td>número</td><td>str</td><td><code>str(32)</code></td><td><code>"32"</code></td><td>Necesario para concatenar</td></tr>
+            <tr><td>str</td><td>int</td><td><code>int("42")</code></td><td><code>42</code></td><td>Falla si no es numérico</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="alert-triangle"></i>
+          <div><strong>Truco:</strong> <code>"ABC" + 123</code> falla. Usa <code>"ABC" + str(123)</code> o un f-string: <code>f"ABC{123}"</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="pie-chart"></i> Gráfico · Chart.js</p>
+        <h2>Contenedores en la práctica</h2>
+        <div class="chart-box">
+          <canvas id="chartContainers"></canvas>
+        </div>
+        <p class="chart-caption">Frecuencia relativa típica en scripts de análisis de datos (ilustrativo).</p>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="calculator"></i> Bloque 03</p>
+        <h2>Familias de operadores</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Familia</th><th>¿Qué hace?</th><th>¿Qué retorna?</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="icon-cell"><i data-lucide="sigma"></i></td>
+              <td>Aritméticos</td>
+              <td>Calculan un valor nuevo (suma, resto, potencia…)</td>
+              <td>Un número (u otro operando)</td>
+            </tr>
+            <tr>
+              <td class="icon-cell"><i data-lucide="scale"></i></td>
+              <td>Comparación</td>
+              <td>Preguntan una relación (<code>==</code>, <code>&gt;</code>, <code>&lt;=</code>…)</td>
+              <td><code>True</code> o <code>False</code></td>
+            </tr>
+            <tr>
+              <td class="icon-cell"><i data-lucide="git-merge"></i></td>
+              <td>Lógicos</td>
+              <td>Combinan condiciones (<code>and</code>, <code>or</code>, <code>not</code>)</td>
+              <td><code>True</code> o <code>False</code></td>
+            </tr>
+            <tr>
+              <td class="icon-cell"><i data-lucide="link"></i></td>
+              <td>Identidad / pertenencia</td>
+              <td><code>is</code> (misma referencia) · <code>in</code> (está dentro)</td>
+              <td><code>True</code> o <code>False</code></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="sigma"></i> Operadores aritméticos</p>
+        <h2>Calcular valores</h2>
+        <table>
+          <thead>
+            <tr><th>Símbolo</th><th>Nombre</th><th>Ejemplo</th><th>Resultado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>+</code></td><td>Suma</td><td><code>1 + 4</code></td><td><code>5</code></td></tr>
+            <tr><td><code>-</code></td><td>Resta</td><td><code>1 - 4</code></td><td><code>-3</code></td></tr>
+            <tr><td><code>*</code></td><td>Multiplicación</td><td><code>1 * 4</code></td><td><code>4</code></td></tr>
+            <tr><td><code>/</code></td><td>División</td><td><code>100 / 3</code></td><td><code>33.333…</code></td></tr>
+            <tr><td><code>//</code></td><td>División entera</td><td><code>100 // 3</code></td><td><code>33</code></td></tr>
+            <tr><td><code>%</code></td><td>Módulo (residuo)</td><td><code>12 % 5</code></td><td><code>2</code></td></tr>
+            <tr><td><code>**</code></td><td>Potencia</td><td><code>2 ** 3</code></td><td><code>8</code></td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="ban"></i>
+          <div><strong>No existe <code>x++</code></strong> en Python. Usa <code>x += 1</code>. También: <code>-=</code>, <code>*=</code>, <code>//=</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="scale"></i> Operadores de comparación</p>
+        <h2>Obtener True / False</h2>
+        <table>
+          <thead>
+            <tr><th>Símbolo</th><th>Pregunta</th><th>Ejemplo</th><th>Resultado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>==</code></td><td>¿Son iguales en valor?</td><td><code>1 == 1</code></td><td><code>True</code></td></tr>
+            <tr><td><code>!=</code></td><td>¿Son distintos?</td><td><code>"a" != "b"</code></td><td><code>True</code></td></tr>
+            <tr><td><code>&gt;</code> <code>&lt;</code></td><td>¿Mayor / menor?</td><td><code>3 &gt; 10</code></td><td><code>False</code></td></tr>
+            <tr><td><code>&gt;=</code> <code>&lt;=</code></td><td>¿Mayor o igual / menor o igual?</td><td><code>edad &gt;= 18</code></td><td>bool</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="equal"></i>
+          <div><strong>Clave:</strong> <code>=</code> asigna. <code>==</code> compara. Mezclarlos es el error #1 de principiantes (y a veces de seniors también).</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="git-merge"></i> Lógicos e identidad</p>
+        <h2>Combinar y preguntar</h2>
+        <table>
+          <thead>
+            <tr><th>Operador</th><th>Familia</th><th>Ejemplo</th><th>Significado</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>and</code></td><td>Lógico</td><td><code>x &gt; 0 and x &lt; 10</code></td><td>Ambas deben ser True</td></tr>
+            <tr><td><code>or</code></td><td>Lógico</td><td><code>es_vip or monto &gt; 100</code></td><td>Basta con una True</td></tr>
+            <tr><td><code>not</code></td><td>Lógico</td><td><code>not activo</code></td><td>Invierte el booleano</td></tr>
+            <tr><td><code>is</code></td><td>Identidad</td><td><code>y is None</code></td><td>¿Misma referencia en memoria?</td></tr>
+            <tr><td><code>in</code></td><td>Pertenencia</td><td><code>"jose" in nombres</code></td><td>¿Está contenido?</td></tr>
+          </tbody>
+        </table>
+        <pre><code class="language-python" data-trim>
+# Par / impar con módulo + comparación
+print("par" if x % 2 == 0 else "impar")
+        </code></pre>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="boxes"></i> Bloque 04</p>
+        <h2>Contenedores</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Tipo</th><th>Propiedades</th><th>¿Cuándo usarlo?</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="list-ordered"></i></td><td>list</td><td>Ordenada, mutable, duplicados OK</td><td>Secuencias que cambian</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="lock"></i></td><td>tuple</td><td>Ordenada, inmutable</td><td>Coordenadas, retornos fijos</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="circle-dot"></i></td><td>set</td><td>Únicos, sin orden garantizado</td><td>Deduplicar, uniones/intersecciones</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="key"></i></td><td>dict</td><td>Llave → valor</td><td>Registros, JSON, lookups O(1)</td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="brackets"></i> Listas en acción</p>
+        <h2>Métodos que más usarás</h2>
+        <table>
+          <thead>
+            <tr><th>Método</th><th>Efecto</th><th>Ejemplo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>append(x)</code></td><td>Agrega al final</td><td><code>l.append(4)</code></td></tr>
+            <tr><td><code>insert(i, x)</code></td><td>Inserta en índice</td><td><code>l.insert(2, 2.5)</code></td></tr>
+            <tr><td><code>pop(i)</code></td><td>Quita por índice</td><td><code>l.pop(0)</code></td></tr>
+            <tr><td><code>sort()</code></td><td>Ordena in-place</td><td><code>l.sort(reverse=True)</code></td></tr>
+            <tr><td><code>l[a:b]</code></td><td>Slice (b excluyente)</td><td><code>l[1:3]</code> → índices 1 y 2</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="x-circle"></i>
+          <div><strong>Antipatrón:</strong> <code>l = l.append(1)</code> deja <code>l = None</code>. <code>append</code> muta y no retorna la lista.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="memory-stick"></i> Concepto clave</p>
+        <h2>Referencias vs copias</h2>
+        <div class="grid-2">
+          <div>
+            <h3 class="h3-flush">Misma referencia</h3>
+            <pre><code class="language-python" data-trim>
+a = [1, 2, 3]
+b = a
+b.append(4)
+# a y b: [1, 2, 3, 4]
+            </code></pre>
+          </div>
+          <div>
+            <h3 class="h3-flush">Copia independiente</h3>
+            <pre><code class="language-python" data-trim>
+a = [1, 2, 3]
+c = a.copy()
+c.append(5)
+# a intacta; c tiene 5
+            </code></pre>
+          </div>
+        </div>
+        <div class="fact">
+          <i data-lucide="copy"></i>
+          <div><strong>Regla de oro:</strong> <code>==</code> compara valor; <code>is</code> compara identidad. Con mutables, asignar (<code>b = a</code>) comparte el objeto.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="git-branch"></i> Bloque 05</p>
+        <h2>Flujos de control</h2>
+        <table>
+          <thead>
+            <tr><th></th><th>Familia</th><th>Herramientas</th><th>Idea</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="icon-cell"><i data-lucide="split"></i></td>
+              <td>Condicionales</td>
+              <td><code>if / elif / else</code> · <code>match / case</code></td>
+              <td>Ramificar según una pregunta True/False</td>
+            </tr>
+            <tr>
+              <td class="icon-cell"><i data-lucide="repeat"></i></td>
+              <td>Bucles</td>
+              <td><code>for</code> · <code>while</code> · <code>break</code> / <code>continue</code></td>
+              <td>Repetir sobre una colección o mientras valga una condición</td>
+            </tr>
+          </tbody>
+        </table>
+        <pre><code class="language-python" data-trim>
+for i, nombre in enumerate(["ana", "luis"]):
+    print(i, nombre)   # preferible a range(len(...))
+        </code></pre>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="shield"></i> Manejo de errores</p>
+        <h2>EAFP en la práctica</h2>
+        <pre><code class="language-python" data-trim>
+try:
+    x = a / b
+except ZeroDivisionError:
+    print("división entre cero no permitida")
+except TypeError:
+    print("tipos incompatibles")
+        </code></pre>
+        <div class="fact">
+          <i data-lucide="sparkles"></i>
+          <div><strong>Pythonic:</strong> Easier to Ask Forgiveness than Permission. Intenta la operación y captura el error, en vez de validar todo de antemano.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#AF1348" class="skin-accent">
+        <p class="eyebrow"><i data-lucide="function-square"></i> Bloque 06</p>
+        <h2>Funciones</h2>
+        <pre><code class="language-python" data-trim>
+def crear_boleta(nombre, monto, doc="dni"):
+    return {
+        "nombre": nombre,
+        "monto": float(monto),
+        "doc": doc,
+    }
+
+crear_boleta("jose", 100)
+crear_boleta("camila", 23, "ruc")
+        </code></pre>
+        <table class="table-follow">
+          <thead>
+            <tr><th></th><th>Idea</th><th>Detalle</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="icon-cell"><i data-lucide="sliders"></i></td><td>Defaults</td><td><code>doc="dni"</code> es opcional</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="badge-check"></i></td><td>Tipado</td><td><code>def suma(a: int, b: int) -&gt; int</code></td></tr>
+            <tr><td class="icon-cell"><i data-lucide="sigma"></i></td><td>Lambdas</td><td><code>lambda a, b: a + b</code> para casos cortos</td></tr>
+            <tr><td class="icon-cell"><i data-lucide="package"></i></td><td>Retorno</td><td>Sin <code>return</code> explícito → <code>None</code></td></tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="sparkle"></i> Estilo</p>
+        <h2>Ser “pythonic”</h2>
+        <div class="stat-row">
+          <div class="stat">
+            <div class="v"><i data-lucide="shield-check"></i> EAFP</div>
+            <div class="l">Easier to Ask Forgiveness<br />than Permission</div>
+          </div>
+          <div class="stat">
+            <div class="v"><i data-lucide="minus"></i> plano</div>
+            <div class="l">Prefiere condiciones planas<br />a anidar ifs</div>
+          </div>
+          <div class="stat">
+            <div class="v"><i data-lucide="indent"></i> indent</div>
+            <div class="l">Indentación consistente<br />(PEP 8 sugiere 4)</div>
+          </div>
+        </div>
+        <div class="fact">
+          <i data-lucide="file-code"></i>
+          <div><strong>Fun fact:</strong> El nombre oficial del estilo es PEP 8. “Pythonic” no es dogma: es código legible que aprovecha las fortalezas del lenguaje.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="dumbbell"></i> Bloque 07 · Práctica</p>
+        <h2>Ejercicios</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th>Función</th><th>Objetivo</th><th>Ejemplo</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="agenda-num">01</td>
+              <td><code>semanas_dias(dias)</code></td>
+              <td>Convierte días en semanas y días</td>
+              <td><code>10</code> → 1 semana y 3 días</td>
+            </tr>
+            <tr>
+              <td class="agenda-num">02</td>
+              <td><code>tope_mil(x1, x2)</code></td>
+              <td>Producto si &lt; 1000; si no, la suma</td>
+              <td><code>(2,4)→8</code> · <code>(200,10)→210</code></td>
+            </tr>
+            <tr>
+              <td class="agenda-num">03</td>
+              <td><code>letras_impares(palabra)</code></td>
+              <td>Caracteres en índices pares (0, 2, 4…)</td>
+              <td><code>"hola"</code> → <code>"hl"</code></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="lightbulb"></i>
+          <div><strong>Pista:</strong> el ejercicio 1 usa <code>//</code> y <code>%</code>. El 3 usa slicing: <code>palabra[::2]</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#000000" class="center-slide">
+        <i data-lucide="arrow-right" class="title-icon"></i>
+        <p class="eyebrow"><i data-lucide="calendar"></i> Próxima sesión</p>
+        <h1 class="closing-title">Pandas</h1>
+        <p class="lead-center">
+          Lectura · selecciones · filtros · agrupaciones · insights
+        </p>
+        <p class="closing-note">
+          Preguntas · chat grupal · contacto del profesor
+        </p>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/plotly.js@2.35.2/dist/plotly.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script>
+    const chartDefaults = {
+      color: "#FFFFFF",
+      borderColor: "#4C4C4C",
+      font: { family: "'DM Sans', sans-serif", size: 14 },
+    };
+
+    Chart.defaults.color = chartDefaults.color;
+    Chart.defaults.borderColor = chartDefaults.borderColor;
+    Chart.defaults.font.family = chartDefaults.font.family;
+    Chart.defaults.font.size = chartDefaults.font.size;
+
+    let chartDomains;
+    let chartContainers;
+
+    function initCharts() {
+      const domainsEl = document.getElementById("chartDomains");
+      if (domainsEl && !chartDomains) {
+        chartDomains = new Chart(domainsEl, {
+          type: "bar",
+          data: {
+            labels: ["Web", "Datos / BI", "ML / IA", "Automatización", "Ciencia"],
+            datasets: [{
+              label: "Uso relativo",
+              data: [78, 92, 88, 70, 65],
+              backgroundColor: ["#AF1348", "#FFEF01", "#AF1348", "#4C4C4C", "#A5A5A5"],
+              borderWidth: 0,
+              borderRadius: 4,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: { display: false },
+              title: {
+                display: true,
+                text: "Python en la industria (índice relativo)",
+                color: "#FFFFFF",
+                font: { family: "'Space Grotesk', sans-serif", size: 18, weight: "700" },
+              },
+            },
+            scales: {
+              x: {
+                ticks: { color: "#FFFFFF", font: { size: 13 } },
+                grid: { color: "rgba(76,76,76,0.35)" },
+              },
+              y: {
+                beginAtZero: true,
+                max: 100,
+                ticks: { color: "#A5A5A5", font: { size: 13 } },
+                grid: { color: "rgba(76,76,76,0.35)" },
+              },
+            },
+          },
+        });
+      }
+
+      const containersEl = document.getElementById("chartContainers");
+      if (containersEl && !chartContainers) {
+        chartContainers = new Chart(containersEl, {
+          type: "doughnut",
+          data: {
+            labels: ["list", "dict", "tuple", "set"],
+            datasets: [{
+              data: [42, 35, 15, 8],
+              backgroundColor: ["#AF1348", "#FFEF01", "#4C4C4C", "#A5A5A5"],
+              borderColor: "#000000",
+              borderWidth: 3,
+            }],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "right",
+                labels: {
+                  color: "#FFFFFF",
+                  font: { family: "'Space Grotesk', sans-serif", size: 15 },
+                  padding: 16,
+                },
+              },
+              title: {
+                display: true,
+                text: "¿Qué contenedor usamos más?",
+                color: "#FFFFFF",
+                font: { family: "'Space Grotesk', sans-serif", size: 18, weight: "700" },
+              },
+            },
+          },
+        });
+      }
+
+      const tiobeEl = document.getElementById("plotlyTiobe");
+      if (tiobeEl && !tiobeEl.dataset.ready) {
+        Plotly.newPlot(
+          tiobeEl,
+          [{
+            x: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [3.8, 4.2, 5.5, 6.8, 8.5, 10.2, 11.9, 14.1, 15.8, 17.2, 18.5],
+            type: "scatter",
+            mode: "lines+markers",
+            line: { color: "#AF1348", width: 3 },
+            marker: { color: "#FFEF01", size: 9 },
+            name: "TIOBE %",
+          }],
+          {
+            paper_bgcolor: "#1D1D1B",
+            plot_bgcolor: "#1D1D1B",
+            margin: { t: 36, r: 24, b: 48, l: 48 },
+            font: { family: "DM Sans, sans-serif", color: "#FFFFFF", size: 14 },
+            xaxis: {
+              title: "Año",
+              gridcolor: "#4C4C4C",
+              zerolinecolor: "#4C4C4C",
+              color: "#A5A5A5",
+            },
+            yaxis: {
+              title: "Índice (%)",
+              gridcolor: "#4C4C4C",
+              zerolinecolor: "#4C4C4C",
+              color: "#A5A5A5",
+            },
+            title: {
+              text: "Ascenso de Python en TIOBE",
+              font: { family: "Space Grotesk, sans-serif", size: 18, color: "#FFFFFF" },
+            },
+          },
+          { responsive: true, displayModeBar: false }
+        );
+        tiobeEl.dataset.ready = "1";
+      }
+    }
+
+    function resizeCharts() {
+      if (chartDomains) chartDomains.resize();
+      if (chartContainers) chartContainers.resize();
+      const tiobeEl = document.getElementById("plotlyTiobe");
+      if (tiobeEl && tiobeEl.dataset.ready) {
+        Plotly.Plots.resize(tiobeEl);
+      }
+    }
+
+    Reveal.initialize({
+      hash: true,
+      slideNumber: "c/t",
+      transition: "fade",
+      backgroundTransition: "fade",
+      width: 1280,
+      height: 720,
+      margin: 0.08,
+      controls: true,
+      progress: true,
+      center: false,
+      plugins: [RevealHighlight],
+    }).then(() => {
+      lucide.createIcons();
+      initCharts();
+      Reveal.on("slidechanged", () => {
+        lucide.createIcons();
+        resizeCharts();
+      });
+    });
+  </script>
+</body>
+</html>
