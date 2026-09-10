@@ -43,6 +43,22 @@
         </table>
       </section>
 
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="flag"></i> Contrato de la sesión</p>
+        <h2>Al final de hoy podrás</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Habilidad</th><th>Pregunta que respondes</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="file-search"></i></td><td>Inspeccionar un CSV</td><td>¿Qué hay, de qué tipo, hay nulos?</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="mouse-pointer-click"></i></td><td>Seleccionar y filtrar</td><td>¿Qué filas importan al negocio?</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="group"></i></td><td>Agrupar y agregar</td><td>¿Cuánto, en promedio, por grupo?</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="lightbulb"></i></td><td>Sacar un insight</td><td>¿Qué decisión cambia con este número?</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section data-background-color="#F5EC91" class="skin-light">
         <p class="eyebrow"><i data-lucide="info"></i> Fundamentos</p>
         <h2>¿Qué es Pandas?</h2>
@@ -189,6 +205,26 @@ a1 + a2
       </section>
 
       <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="scan-search"></i> Primera lectura</p>
+        <h2>Cómo leer info() y describe()</h2>
+        <table>
+          <thead>
+            <tr><th>Método</th><th>Qué miras</th><th>Señal de alerta</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>info()</code></td><td>filas, dtypes, nulos</td><td>número leído como <code>object</code></td></tr>
+            <tr><td><code>describe()</code></td><td>count, mean, min, max</td><td>max absurdo o count &lt; filas</td></tr>
+            <tr><td><code>head()</code> / <code>tail()</code></td><td>forma real de los datos</td><td>fechas raras, códigos sucios</td></tr>
+            <tr><td><code>isna().sum()</code></td><td>nulos por columna</td><td>columna clave con muchos NaN</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="shield-alert"></i>
+          <div><strong>Regla:</strong> no filtres ni agrupes hasta saber dtypes y nulos. Un <code>object</code> que debería ser fecha rompe todo lo que sigue.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
         <p class="eyebrow"><i data-lucide="route"></i> Metodología del taller</p>
         <h2>Flujo de análisis</h2>
         <table class="flow-table">
@@ -236,6 +272,22 @@ df.shape          # (filas, columnas)
         </div>
       </section>
 
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="clipboard-check"></i> Calidad</p>
+        <h2>Checklist antes de transformar</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th>Chequeo</th><th>Por qué</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td>¿Cuántas filas y columnas?</td><td>Detectar cortes o joins mal hechos</td></tr>
+            <tr><td class="agenda-num">02</td><td>¿Hay duplicados de ID?</td><td>Inflan sumas y conteos</td></tr>
+            <tr><td class="agenda-num">03</td><td>¿Fechas en datetime?</td><td>Sin eso no hay mes, year ni rangos</td></tr>
+            <tr><td class="agenda-num">04</td><td>¿Nulos en la métrica clave?</td><td><code>mean()</code> los ignora; <code>sum()</code> también</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section data-background-color="#000000">
         <p class="eyebrow"><i data-lucide="mouse-pointer-click"></i> Bloque 03</p>
         <h2>Selecciones</h2>
@@ -255,6 +307,26 @@ df.shape          # (filas, columnas)
         <div class="fact">
           <i data-lucide="bookmark"></i>
           <div><strong>loc vs iloc:</strong> <code>loc</code> = etiquetas. <code>iloc</code> = posición entera. Confundirlos genera bugs tras un <code>reset_index</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="message-circle-question"></i> Método</p>
+        <h2>De la pregunta al código</h2>
+        <table>
+          <thead>
+            <tr><th>Pregunta</th><th>Operación</th><th>Esqueleto</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>¿Cuánto en total?</td><td>agregar</td><td><code>df["col"].sum()</code></td></tr>
+            <tr><td>¿Solo los graves?</td><td>filtrar</td><td><code>df[df["x"] &gt; umbral]</code></td></tr>
+            <tr><td>¿Por mes / canal?</td><td>agrupar</td><td><code>groupby(...).agg(...)</code></td></tr>
+            <tr><td>¿Cruzar con otra tabla?</td><td>merge</td><td><code>pd.merge(a, b, on=...)</code></td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="pencil"></i>
+          <div><strong>Hábito:</strong> escribe la pregunta en una línea de comentario <em>antes</em> del código. Si no puedes enunciarla, aún no sabes qué calcular.</div>
         </div>
       </section>
 
@@ -281,6 +353,24 @@ df[(df["new_deaths"] > 500) & (df["new_cases"] > 5000)]
           <i data-lucide="alert-triangle"></i>
           <div><strong>No uses <code>and</code>/<code>or</code></strong> entre Series de Pandas: usa <code>&amp;</code> / <code>|</code> con paréntesis.</div>
         </div>
+      </section>
+
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="flask-conical"></i> Pensar en hipótesis</p>
+        <h2>Un filtro no es “limpiar”</h2>
+        <p class="body-text">
+          Filtrar <strong>cambia la población</strong>. Cada condición es una hipótesis: “solo importan los días graves”.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Filtro</th><th>Población que queda</th><th>Riesgo</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>new_deaths &gt; 500</code></td><td>Días extremos</td><td>Pierdes la tendencia de fondo</td></tr>
+            <tr><td><code>year == 2020</code></td><td>Un solo año</td><td>No compares con 2021 sin decirlo</td></tr>
+            <tr><td>nulos dropna</td><td>Filas “completas”</td><td>Puede sesgar si los nulos no son al azar</td></tr>
+          </tbody>
+        </table>
       </section>
 
       <section data-background-color="#1D1D1B">
@@ -330,6 +420,25 @@ df.groupby(["year", "month"]).agg({
         </div>
       </section>
 
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="speech"></i> Interpretar</p>
+        <h2>El número no es el insight</h2>
+        <table>
+          <thead>
+            <tr><th>Resultado</th><th>Todavía falta</th><th>Insight</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Suma de casos por mes</td><td>¿Es pico o mes más largo?</td><td>Marzo explota vs febrero, no vs octubre</td></tr>
+            <tr><td>Media de muertes</td><td>¿Hay outliers?</td><td>Un día extremo mueve la media</td></tr>
+            <tr><td>Count de tests</td><td>¿Count = tests o filas?</td><td><code>count</code> ignora nulos; no es “tests hechos”</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="users"></i>
+          <div><strong>Comunica:</strong> “en abril la media de muertes diarias fue X” + <em>comparado con</em> marzo. Sin comparador, el número no decide nada.</div>
+        </div>
+      </section>
+
       <section data-background-color="#1D1D1B">
         <p class="eyebrow"><i data-lucide="store"></i> Caso de negocio</p>
         <h2>Segmentación RFM</h2>
@@ -346,6 +455,26 @@ df.groupby(["year", "month"]).agg({
         <div class="fact">
           <i data-lucide="mail"></i>
           <div><strong>Insight:</strong> scores 1-4 por cuartiles → RFM compuesto → campañas distintas para champions vs en riesgo.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#F5EC91" class="skin-light">
+        <p class="eyebrow"><i data-lucide="megaphone"></i> Acción</p>
+        <h2>Qué hacer con cada segmento</h2>
+        <table>
+          <thead>
+            <tr><th>Perfil</th><th>RFM típico</th><th>Acción</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Champions</td><td>11–12</td><td>Cuidar: early access, no descontar de más</td></tr>
+            <tr><td>Leales</td><td>9–10</td><td>Cruzar categorías, programa de referidos</td></tr>
+            <tr><td>En riesgo</td><td>R baja, F/M altas</td><td>Win-back personalizado, no blast masivo</td></tr>
+            <tr><td>Dormidos</td><td>3–5</td><td>Poco presupuesto; o reactivar o dejar ir</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="ban"></i>
+          <div><strong>Error común:</strong> tratar a todos con la misma campaña. RFM existe para <em>dejar de</em> gastar igual en quien no va a volver.</div>
         </div>
       </section>
 
@@ -396,6 +525,22 @@ df.groupby(["year", "month"]).agg({
         </div>
       </section>
 
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="circle-alert"></i> Trampas frecuentes</p>
+        <h2>Errores que rompen el análisis</h2>
+        <table>
+          <thead>
+            <tr><th>Trampa</th><th>Qué pasa</th><th>Antídoto</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>and</code> / <code>or</code> en filtros</td><td>ValueError o resultado raro</td><td><code>&amp;</code> <code>|</code> con paréntesis</td></tr>
+            <tr><td><code>SettingWithCopy</code></td><td>El cambio no queda en <code>df</code></td><td><code>.copy()</code> o <code>.loc[fila, col] =</code></td></tr>
+            <tr><td>Merge sin chequear llaves</td><td>Filas duplicadas / explosión</td><td>Validar <code>nunique</code> antes y después</td></tr>
+            <tr><td>Media sin mirar nulos</td><td>Subestimas o sobreestimas</td><td><code>isna().mean()</code> por columna</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section data-background-color="#000000" class="center-slide">
         <i data-lucide="circle-check" class="title-icon"></i>
         <p class="eyebrow"><i data-lucide="flag"></i> Cierre</p>
@@ -416,6 +561,7 @@ df.groupby(["year", "month"]).agg({
   <script src="https://cdn.jsdelivr.net/npm/plotly.js@2.35.2/dist/plotly.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="../shared/reveal-boot.js"></script>
   <script>
     const chartDark = {
       bg: "#1D1D1B",
@@ -559,29 +705,14 @@ df.groupby(["year", "month"]).agg({
       if (covid && covid.dataset.ready) Plotly.Plots.resize(covid);
     }
 
-    Reveal.initialize({
-      hash: true,
-      slideNumber: "c/t",
-      transition: "fade",
-      backgroundTransition: "fade",
-      width: 1280,
-      height: 720,
-      margin: 0.08,
-      controls: true,
-      progress: true,
-      center: false,
-      plugins: [RevealHighlight],
-    }).then(() => {
-      lucide.createIcons();
-      initNumpyChart();
-      initCovidPlot();
-      initRfmChart();
-      resizeCharts();
-
-      Reveal.on("slidechanged", () => {
-        lucide.createIcons();
+    PBSReveal.boot({
+      onReady() {
+        initNumpyChart();
+        initCovidPlot();
+        initRfmChart();
         resizeCharts();
-      });
+      },
+      onSlideChanged() { resizeCharts(); },
     });
   </script>
 </body>

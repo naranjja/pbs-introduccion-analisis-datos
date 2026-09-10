@@ -1,0 +1,423 @@
+CLASE 2 · ANÁLISIS DE DATOS CON PANDAS
+Programa Ejecutivo en Data Science
+Sesión 2 · De tablas crudas a insights accionables
+
+Archivos de la sesión
+- presentacion.html  Diapositivas (abrir en el navegador)
+- codigo.ipynb       Notebook práctico (Jupyter / VS Code / Google Colab)
+- esquema.txt        Este documento
+- data/              CSVs usados en el notebook (ajustar DATA_PATH si no están en ./data)
+                     italy.csv · locations.csv · countries.csv · ventas.csv
+
+Cómo usar la sesión
+Ejecutar el notebook celda a celda junto a la presentación. El código está
+orientado a exploración, no a producción. En Colab, montar Drive y cambiar
+DATA_PATH si hace falta.
+
+
+========================================================================
+OBJETIVO DE LA CLASE
+========================================================================
+
+Pasar de tablas crudas a insights accionables: leer archivos, explorar,
+seleccionar, filtrar, transformar, agrupar y comunicar. Cierra con un caso
+empresarial de segmentación RFM.
+
+Al final de hoy (diapositiva “Contrato de la sesión”)
+01  Inspeccionar un CSV — ¿qué hay, de qué tipo, hay nulos?
+02  Seleccionar y filtrar — ¿qué filas importan al negocio?
+03  Agrupar y agregar — ¿cuánto, en promedio, por grupo?
+04  Sacar un insight — ¿qué decisión cambia con este número?
+
+
+========================================================================
+AGENDA (PRESENTACIÓN)
+========================================================================
+
+01  Introducción a Pandas (y NumPy)
+02  Lectura de archivos de datos
+03  Selecciones
+04  Transformaciones
+05  Filtros
+06  Agrupaciones
+07  Ejercicios
+
+Nota: en las diapositivas el orden de filtros/transformaciones aparece
+intercambiado respecto a los números del bloque (filtro = bloque 04 en
+slides; en el notebook el orden es seleccionar → filtrar → transformar).
+El flujo metodológico oficial de la clase es el de la tabla “Flujo de
+análisis” más abajo.
+
+
+========================================================================
+BLOQUE 01 · INTRODUCCIÓN A PANDAS Y NUMPY
+========================================================================
+
+Qué es Pandas
+- Biblioteca en Python para Panel Data: tablas etiquetadas, limpieza,
+  agregación y análisis.
+- Open source, comunidad activa, licencia permisiva.
+- API estándar de data science: integrable con NumPy, Matplotlib, scikit-learn.
+- Escalable: de CSVs locales a datasets grandes.
+
+¿Para qué sirve? (casos)
+- Stocks (TSA): series de tiempo, retornos, ventanas móviles.
+- Ventas (AGG): agregaciones por canal, región, campaña.
+- Salud (LG): cohortes, indicadores, seguimiento temporal.
+- Clientes: segmentación RFM, churn, lifetime value.
+- En la práctica: Pandas simplifica estadística descriptiva, limpieza y
+  preparación — el ~80% del trabajo antes del modelo.
+
+Dato curioso
+- 2008: Wes McKinney creó Pandas en AQR Capital para datos financieros.
+- El nombre viene de Panel Data, y también de “pandas” (son lindos).
+- Hoy es una de las librerías más descargadas de PyPI.
+
+Qué es NumPy
+- Arrays: arreglos n-dimensionales tipados.
+- Matrices: operaciones vectorizadas, sin loops de Python.
+- Eficiencia: C bajo el capó; órdenes de magnitud más rápido.
+- Ecosistema: base de Pandas, SciPy, Matplotlib, scikit-learn.
+
+Listas vs arrays
+- Python vanilla: loop + append para sumar elemento a elemento.
+- NumPy: a1 + a2  (vectorizado, tipado, rápido).
+- Fun fact: un array de 1M de enteros puede usar ~4× menos memoria que
+  una lista equivalente, y operar 10-100× más rápido.
+
+Gráfico (Chart.js) · Velocidad relativa
+- Loop de lista = 1× · NumPy ≈ 40×
+
+En el notebook · NumPy vs listas
+- np.array, suma/resta/producto/división elemento a elemento
+- np.square, np.log, np.mean, np.max, np.min
+- Matrices 3×3 y suma de matrices
+- Constantes: np.nan, np.inf, -np.inf
+
+¿Por qué Pandas?
+- DataFrames: tablas con etiquetas en filas y columnas.
+- Manipulación: select, filter, join, reshape.
+- Integraciones: CSV, Excel, SQL, Parquet, APIs.
+- Limpieza: nulos, tipos, duplicados, fechas.
+- Series de tiempo: resample, shift, rolling.
+- Performance: vectorización + NumPy por debajo.
+
+Modelo mental · Series y DataFrames
+- Una Serie es una columna etiquetada.
+- Un DataFrame es Serie + Serie + … alineadas por índice.
+- Eje 0 = filas (observaciones / registros).
+- Eje 1 = columnas (variables / campos).
+
+Cómo leer info() y describe()
+- info()      filas, dtypes, nulos     alerta: número leído como object
+- describe()  count, mean, min, max    alerta: max absurdo o count < filas
+- head/tail   forma real de los datos  fechas raras, códigos sucios
+- isna().sum() nulos por columna       columna clave con muchos NaN
+- Regla: no filtrar ni agrupar hasta saber dtypes y nulos.
+
+Ejemplo de tabla
+  índice  nombre  edad  ciudad
+  0       jose    32    medellín
+  1       juan    10    medellín
+
+En el notebook · Series y DataFrames
+- pd.Series desde una lista; .to_numpy(); dtype inferido (int64).
+- DataFrame desde lista de dicts.
+- Selección de columna y filtro por género.
+- Cambiar el índice (df.index = [99, 67]), loc[99], reset_index(drop=True).
+
+
+========================================================================
+METODOLOGÍA DEL TALLER · FLUJO DE ANÁLISIS
+========================================================================
+
+1. Leer         Cargar CSV / fuente
+2. Explorar     head, info, describe
+3. Seleccionar  Columnas y filas relevantes
+4. Filtrar      Condiciones de negocio
+5. Transformar  Fechas, columnas nuevas, merges
+6. Agrupar      Aggregations
+7. Insight      Decisión / comunicación
+
+Datasets de hoy
+- COVID Italia (italy.csv) + locations.csv
+- Países (countries.csv) — ejercicios
+- Ventas (ventas.csv) — caso RFM
+
+Gráfico (Plotly) · Casos nuevos Italia 2020 (mock mensual)
+- Pico de primavera (mar-abr) y segundo pico fuerte oct-dic.
+
+
+========================================================================
+CONFIGURACIÓN DEL NOTEBOOK
+========================================================================
+
+Imports
+- numpy as np
+- pandas as pd
+- matplotlib.pyplot as plt
+- seaborn as sns
+
+DATA_PATH = "./data"   (cambiar según el entorno)
+
+Opciones
+- Tema seaborn oscuro alineado a la presentación.
+- pd.set_option("display.float_format", ...) para 5 decimales.
+
+
+========================================================================
+BLOQUE 02 · LECTURA DE ARCHIVOS
+========================================================================
+
+Código base
+  import pandas as pd
+  df = pd.read_csv("italy.csv")
+  df.head()
+  df.info()
+  df.describe()
+  df.shape          # (filas, columnas)
+
+Tip
+- Siempre revisar dtypes, nulos y un preview antes de transformar.
+- pd.to_datetime() es el aliado con fechas.
+
+Checklist antes de transformar
+01  ¿Cuántas filas y columnas?     detectar cortes o joins mal hechos
+02  ¿Hay duplicados de ID?         inflan sumas y conteos
+03  ¿Fechas en datetime?           sin eso no hay mes, year ni rangos
+04  ¿Nulos en la métrica clave?    mean() y sum() ignoran NaN
+
+En el notebook · COVID Italia
+- pd.read_csv(f"{DATA_PATH}/italy.csv") y copia a df_covid
+- Listar columnas y dtype de cada una
+- Preview (display / head)
+- sort_values("new_cases", ascending=False).head(3)
+- Encadenar head(100).tail(5).reset_index(drop=True)
+- info(), describe(), mean de new_deaths
+- shape, len(df), len(df.columns)
+- Casting comentado: .astype(int) si aplica
+
+
+========================================================================
+BLOQUE 03 · SELECCIONES
+========================================================================
+
+Objetivo                    Código                                      Notas
+Una columna (Serie)         df["new_deaths"]                            Retorna Serie
+Varias columnas             df[["date", "new_cases"]]                   Doble corchete → DataFrame
+Fila por etiqueta           df.loc[100]                                 Usa el índice
+Fila por posición           df.iloc[0]                                  Posición 0, 1, 2…
+Celda / subset              df.loc[100, ["date", "new_deaths"]]         Fila + columnas
+Preview                     df.head(3) / df.tail(5)                     Primeras / últimas
+
+loc vs iloc
+- loc = etiquetas. iloc = posición entera.
+- Confundirlos genera bugs después de un reset_index.
+
+De la pregunta al código
+- ¿Cuánto en total?       agregar    df["col"].sum()
+- ¿Solo los graves?       filtrar    df[df["x"] > umbral]
+- ¿Por mes / canal?       agrupar    groupby(...).agg(...)
+- ¿Cruzar otra tabla?     merge      pd.merge(a, b, on=...)
+- Hábito: escribe la pregunta en un comentario antes del código.
+
+En el notebook
+- Subset de columnas; loc[100, ...] vs encadenar [[cols]].loc[100]
+- Agregados simples: sum de new_cases, max de new_deaths, sum de new_tests
+
+
+========================================================================
+BLOQUE 04 / 05 · FILTROS Y TRANSFORMACIONES
+========================================================================
+
+--- Filtros ---
+
+Operador   Significado        Ejemplo
+&          AND (ambas)        (a > 5) & (b < 10)
+|          OR (alguna)        (a > 5) | (b < 10)
+~          NOT (niega)        ~df["vip"]
+
+Ejemplos
+  df[df["new_deaths"] > 500]
+  df[(df["new_deaths"] > 500) & (df["new_cases"] > 5000)]
+- Siempre paréntesis en condiciones compuestas.
+- No usar and / or entre Series de Pandas: usar & / | con paréntesis.
+
+Un filtro no es “limpiar”: cambia la población
+- new_deaths > 500   días extremos     pierdes la tendencia de fondo
+- year == 2020       un solo año       no compares 2021 sin decirlo
+- dropna             filas “completas” sesgo si los nulos no son al azar
+
+En el notebook
+- Máscara AND guardada en una variable
+- OR anidado con AND
+- Contar filas que cumplen new_deaths > 500
+- Media de new_cases en el subset filtrado
+- Top 3 por new_deaths (sort_values)
+
+--- Transformaciones ---
+
+Operación              Ejemplo                                      Para qué
+Columnas derivadas     df["pct"] = df["new_cases"] / pop            Métricas de negocio
+Casting                df["x"].astype(int)                          Tipos correctos
+Fechas                 pd.to_datetime + .dt.month                   Series de tiempo
+Orden y joins          sort_values, merge                           Cruzar tablas
+
+  df["date"] = pd.to_datetime(df["date"])
+  df["month"] = df["date"].dt.month
+
+En el notebook · fechas
+- pd.to_datetime(..., format="%Y-%m-%d")
+- Extraer year, month, day con .dt
+- datetime.strptime / strftime (formato con zona horaria)
+- unique() de meses; value_counts() de años
+- Filtro por rango temporal (2020-04-01 inclusive a 2020-06-01 exclusive)
+- Quedarse solo con year == 2020
+
+
+========================================================================
+BLOQUE 06 · AGRUPACIONES
+========================================================================
+
+  df.groupby(["year", "month"]).agg({
+      "new_cases": "sum",
+      "new_deaths": "mean",
+      "new_tests": "count",
+  }).reset_index()
+
+agg        Significado
+"sum"      Total del grupo
+"mean"     Promedio
+"count"    Filas no nulas
+"max"/"min" Extremos
+
+Idea clave: split-apply-combine (partir → aplicar → combinar).
+Es el corazón del análisis tabular.
+
+El número no es el insight
+- Suma por mes     ¿pico o mes más largo?     compara marzo vs febrero
+- Media de muertes ¿hay outliers?             un día extremo mueve la media
+- count de tests   ¿count = tests o filas?    count ignora nulos
+- Comunica con comparador: “abril vs marzo”. Sin comparador no hay decisión.
+
+En el notebook también hay groupby("month") con sum de casos y mean de tests.
+
+
+========================================================================
+MERGE CON LOCATIONS (NOTEBOOK)
+========================================================================
+
+- Leer locations.csv
+- Filtrar location == "Italy"
+- Asignar df_covid["location"] = "Italy"
+- pd.merge(..., how="left", on="location")
+- Columna derivada: porcentaje_casos_poblacion = new_cases / population
+- Top 5 por ese porcentaje
+
+Descanso de 20 minutos (marcado en el notebook).
+
+
+========================================================================
+CASO DE NEGOCIO · SEGMENTACIÓN RFM
+========================================================================
+
+Letra   Dimensión    Pregunta
+R       Recencia     ¿Cuándo compró por última vez?
+F       Frecuencia   ¿Cuántas veces compra?
+M       Monto        ¿Cuánto gasta en total?
+
+Insight
+- Scores 1-4 por cuartiles → RFM compuesto → campañas distintas
+  para champions vs en riesgo.
+
+Gráfico (Chart.js) · Conteo de clientes por score RFM (3-12)
+- Distribución en forma de campana (más masa en scores 6-8).
+
+En el notebook · ventas.csv (delimiter=";")
+Columnas clave
+- INT_LLAVE_SMNA     última campaña / recencia
+- VCH_CODI_PEDI      frecuencia (conteo de pedidos)
+- DEC_TOTL_PAGO_ML   monto
+- VCH_CODI_CNS       código de cliente / vendedor
+
+Pasos
+1. Quedarse con esas 4 columnas.
+2. CAMPANA = primeros 6 dígitos de INT_LLAVE_SMNA (año + campaña).
+3. Agrupar por cliente: suma de monto, conteo de pedidos, max de campaña.
+4. RECENCIA = 202203 - CAMPANA (campaña “presente” de esta data = 202203).
+5. Mapear recencia cruda a ranks 0..n.
+6. FRECUENCIA_SCORE y MONTO_SCORE: pd.cut por cuartiles, labels 1-4.
+7. RECENCIA_SCORE: mismos cortes, labels invertidos 4-3-2-1
+   (menor recencia = mejor score).
+8. RFM = suma de los tres scores.
+9. groupby("RFM") con count de clientes y medias de F, M, R.
+10. Acción: para RFM == 12 (champions), “enviar correo con oferta”.
+
+Qué hacer con cada segmento
+- Champions  11–12          cuidar: early access, no descontar de más
+- Leales     9–10           cruzar categorías, referidos
+- En riesgo  R baja, F/M altas   win-back personal, no blast masivo
+- Dormidos   3–5            poco presupuesto; reactivar o dejar ir
+- Error común: la misma campaña para todos.
+
+
+========================================================================
+BLOQUE 07 · EJERCICIOS · DATASET DE PAÍSES
+========================================================================
+
+Archivo: countries.csv
+
+Preguntas (presentación)
+01  ¿Cuántos países hay?
+02  ¿Cuántos continentes?
+03  Población total y por continente
+04  Top 10 países por población
+05  Columna GDP total (población × GDP per cápita)
+06  Top 10 menor GDP per cápita con población > 20M
+
+El notebook desglosa 03 en dos ítems (total + por continente), así que
+lista 7 puntos. Incluye pistas / soluciones parciales de referencia:
+- len(unique) de location y continent
+- Loop por continente + sum de population
+- groupby("continent").agg({"population": "sum"}).sort_values
+- sort_values("population").head(10)
+
+Queda para el estudiante: GDP total y el top 10 de menor GDP per cápita
+filtrado por población > 20M.
+
+
+========================================================================
+BONUS · VISUALIZACIÓN RÁPIDA
+========================================================================
+
+Herramienta     Uso típico
+matplotlib      Base de gráficos en Python
+seaborn         Estilos y plots estadísticos
+df.plot()       Atajo directo desde Pandas
+Tipos           line · bar · hist · scatter · heatmap
+
+Regla: un gráfico = una pregunta. Etiquetar ejes y elegir el tipo según
+la relación que se quiera mostrar.
+
+En el notebook
+- Estilo de colores PBS (accent #AF1348, yellow #FFEF01, fondo oscuro)
+- Líneas: toneladas de manzanas vs naranjas por año
+- Scatter seaborn: iris (sepal_length × sepal_width, hue=species)
+- Histogramas superpuestos: setosa vs virginica
+- Heatmap: flights de seaborn, pivot month × year, cmap plasma
+
+
+========================================================================
+CIERRE
+========================================================================
+
+Trampas frecuentes
+- and/or en filtros      ValueError / resultado raro   & | con paréntesis
+- SettingWithCopy        el cambio no queda en df      .copy() o .loc
+- Merge sin chequear     filas duplicadas / explosión  nunique antes y después
+- Media sin mirar nulos  subestimas o sobreestimas     isna().mean()
+
+De datos a decisiones
+Leer · filtrar · transformar · agrupar · comunicar
+
+Dudas: chat grupal de la sesión o contacto del profesor.

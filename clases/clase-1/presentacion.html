@@ -43,6 +43,22 @@
         </table>
       </section>
 
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="flag"></i> Contrato de la sesión</p>
+        <h2>Al final de hoy podrás</h2>
+        <table>
+          <thead>
+            <tr><th>#</th><th></th><th>Habilidad</th><th>Para qué te sirve</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="agenda-num">01</td><td class="icon-cell"><i data-lucide="tag"></i></td><td>Nombrar y convertir tipos</td><td>No mezclar montos con texto</td></tr>
+            <tr><td class="agenda-num">02</td><td class="icon-cell"><i data-lucide="scale"></i></td><td>Escribir condiciones</td><td>Traducir reglas de negocio a True/False</td></tr>
+            <tr><td class="agenda-num">03</td><td class="icon-cell"><i data-lucide="boxes"></i></td><td>Elegir un contenedor</td><td>Listas, dicts y sets sin adivinar</td></tr>
+            <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="function-square"></i></td><td>Empaquetar lógica en funciones</td><td>Reusar limpiezas en la sesión 2</td></tr>
+          </tbody>
+        </table>
+      </section>
+
       <section data-background-color="#F5EC91" class="skin-light">
         <p class="eyebrow"><i data-lucide="info"></i> Fundamentos</p>
         <h2>¿Qué es Python?</h2>
@@ -225,6 +241,28 @@
         </div>
       </section>
 
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="tag"></i> Modelo mental</p>
+        <h2>Una variable es una etiqueta</h2>
+        <p class="body-text">
+          No “guarda el número”: <strong>apunta</strong> a un objeto. Por eso <code>type()</code> y <code>id()</code> importan.
+        </p>
+        <table>
+          <thead>
+            <tr><th>Pregunta</th><th>Herramienta</th><th>En análisis</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>¿Qué es?</td><td><code>type(x)</code></td><td>Int vs float vs str cambia sumas y filtros</td></tr>
+            <tr><td>¿Está vacío?</td><td><code>x is None</code></td><td>Dato ausente a propósito</td></tr>
+            <tr><td>¿Es el mismo objeto?</td><td><code>a is b</code></td><td>Mutar una lista puede mutar “otra”</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="search"></i>
+          <div><strong>Hábito:</strong> cuando algo “se ve bien” pero falla, imprime <code>type(x)</code> y un ejemplo del valor. El 70% de los bugs de principiante son de tipo.</div>
+        </div>
+      </section>
+
       <section data-background-color="#F5EC91" class="skin-light">
         <p class="eyebrow"><i data-lucide="shuffle"></i> Casting</p>
         <h2>Convertir entre tipos</h2>
@@ -242,6 +280,26 @@
         <div class="fact">
           <i data-lucide="alert-triangle"></i>
           <div><strong>Truco:</strong> <code>"ABC" + 123</code> falla. Usa <code>"ABC" + str(123)</code> o un f-string: <code>f"ABC{123}"</code>.</div>
+        </div>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="bug"></i> Errores que vas a ver</p>
+        <h2>Léelos, no los temas</h2>
+        <table>
+          <thead>
+            <tr><th>Error</th><th>Causa típica</th><th>Qué hacer</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><code>TypeError</code></td><td><code>"10" + 1</code></td><td>Casting: <code>int</code> / <code>str</code></td></tr>
+            <tr><td><code>ValueError</code></td><td><code>int("hola")</code></td><td>Validar o limpiar el texto</td></tr>
+            <tr><td><code>NameError</code></td><td>Variable no definida</td><td>Revisar typo o celda no ejecutada</td></tr>
+            <tr><td><code>IndexError</code></td><td><code>lista[99]</code></td><td>Chequear <code>len()</code> antes</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="arrow-down"></i>
+          <div><strong>Cómo leer un traceback:</strong> la <em>última</em> línea dice el tipo de error; las de arriba muestran el archivo y el número de línea. Empieza por abajo.</div>
         </div>
       </section>
 
@@ -354,6 +412,26 @@ print("par" if x % 2 == 0 else "impar")
         </code></pre>
       </section>
 
+      <section data-background-color="#000000">
+        <p class="eyebrow"><i data-lucide="briefcase"></i> Del negocio al código</p>
+        <h2>Una regla → una condición</h2>
+        <table>
+          <thead>
+            <tr><th>Regla de negocio</th><th>Python</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Cliente VIP o ticket &gt; 100</td><td><code>es_vip or monto &gt; 100</code></td></tr>
+            <tr><td>Edad entre 18 y 65</td><td><code>18 &lt;= edad &lt;= 65</code></td></tr>
+            <tr><td>País en la lista habilitada</td><td><code>pais in habilitados</code></td></tr>
+            <tr><td>No está dado de baja</td><td><code>not baja</code></td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="filter"></i>
+          <div><strong>Puente a Pandas:</strong> estas mismas preguntas se vuelven filtros de tabla: <code>df[(df["monto"] &gt; 100) | df["vip"]]</code>.</div>
+        </div>
+      </section>
+
       <section data-background-color="#F5EC91" class="skin-light">
         <p class="eyebrow"><i data-lucide="boxes"></i> Bloque 04</p>
         <h2>Contenedores</h2>
@@ -368,6 +446,26 @@ print("par" if x % 2 == 0 else "impar")
             <tr><td class="agenda-num">04</td><td class="icon-cell"><i data-lucide="key"></i></td><td>dict</td><td>Llave → valor</td><td>Registros, JSON, lookups O(1)</td></tr>
           </tbody>
         </table>
+      </section>
+
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="compass"></i> Decisión rápida</p>
+        <h2>¿Cuál contenedor uso?</h2>
+        <table>
+          <thead>
+            <tr><th>Si necesitas…</th><th>Usa</th><th>Ejemplo de datos</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Orden y poder cambiar</td><td><code>list</code></td><td>Ventas del día, filas crudas</td></tr>
+            <tr><td>Un registro fijo (x, y)</td><td><code>tuple</code></td><td>Coordenada, par (lat, lon)</td></tr>
+            <tr><td>Únicos / intersección</td><td><code>set</code></td><td>Clientes en campaña A ∩ B</td></tr>
+            <tr><td>Buscar por clave</td><td><code>dict</code></td><td>SKU → precio, JSON de API</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="table-2"></i>
+          <div><strong>Mañana:</strong> un DataFrame es, en la práctica, muchas Series alineadas: piensa “dict de columnas” + índice.</div>
+        </div>
       </section>
 
       <section data-background-color="#1D1D1B">
@@ -492,6 +590,25 @@ crear_boleta("camila", 23, "ruc")
         </table>
       </section>
 
+      <section data-background-color="#1D1D1B">
+        <p class="eyebrow"><i data-lucide="repeat-2"></i> Para qué sirven</p>
+        <h2>Una función = una responsabilidad</h2>
+        <table>
+          <thead>
+            <tr><th>Bien</th><th>Mal</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>Nombre dice qué hace: <code>semanas_dias</code></td><td><code>f</code>, <code>proc</code>, <code>aux2</code></td></tr>
+            <tr><td>Recibe datos, retorna un resultado</td><td>Imprime y no retorna (difícil de testear)</td></tr>
+            <tr><td>Se puede reusar en el notebook</td><td>Copiar-pegar el mismo bloque 4 veces</td></tr>
+          </tbody>
+        </table>
+        <div class="fact">
+          <i data-lucide="graduation-cap"></i>
+          <div><strong>En data:</strong> <code>limpiar_fecha</code>, <code>to_soles</code>, <code>es_outlier</code>. Mañana esas funciones se aplican a columnas enteras.</div>
+        </div>
+      </section>
+
       <section data-background-color="#000000">
         <p class="eyebrow"><i data-lucide="sparkle"></i> Estilo</p>
         <h2>Ser “pythonic”</h2>
@@ -569,6 +686,7 @@ crear_boleta("camila", 23, "ruc")
   <script src="https://cdn.jsdelivr.net/npm/plotly.js@2.35.2/dist/plotly.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/dist/reveal.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/reveal.js@5.1.0/plugin/highlight/highlight.js"></script>
+  <script src="../shared/reveal-boot.js"></script>
   <script>
     const chartDefaults = {
       color: "#FFFFFF",
@@ -713,25 +831,9 @@ crear_boleta("camila", 23, "ruc")
       }
     }
 
-    Reveal.initialize({
-      hash: true,
-      slideNumber: "c/t",
-      transition: "fade",
-      backgroundTransition: "fade",
-      width: 1280,
-      height: 720,
-      margin: 0.08,
-      controls: true,
-      progress: true,
-      center: false,
-      plugins: [RevealHighlight],
-    }).then(() => {
-      lucide.createIcons();
-      initCharts();
-      Reveal.on("slidechanged", () => {
-        lucide.createIcons();
-        resizeCharts();
-      });
+    PBSReveal.boot({
+      onReady() { initCharts(); },
+      onSlideChanged() { resizeCharts(); },
     });
   </script>
 </body>

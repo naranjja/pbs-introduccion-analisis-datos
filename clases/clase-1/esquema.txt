@@ -1,0 +1,399 @@
+CLASE 1 · INTRODUCCIÓN A PYTHON
+Programa Ejecutivo en Data Science
+Sesión 1 · Taller práctico de fundamentos para el análisis de datos
+
+Archivos de la sesión
+- presentacion.html  Diapositivas (abrir en el navegador)
+- codigo.ipynb       Notebook práctico (Jupyter / VS Code / Google Colab)
+- esquema.txt        Este documento
+
+Cómo usar la sesión
+Ejecutar el notebook celda a celda junto a la presentación. El código está
+orientado a exploración, no a producción.
+
+
+========================================================================
+OBJETIVO DE LA CLASE
+========================================================================
+
+Que el estudiante pueda escribir Python básico con claridad: tipos, operadores,
+contenedores, control de flujo y funciones. Esa base se usa en la sesión 2
+(Pandas) para leer, filtrar y agregar tablas.
+
+Al final de hoy (diapositiva “Contrato de la sesión”)
+01  Nombrar y convertir tipos — no mezclar montos con texto
+02  Escribir condiciones — traducir reglas de negocio a True/False
+03  Elegir un contenedor — list / dict / set / tuple sin adivinar
+04  Empaquetar lógica en funciones — reusar limpiezas en la sesión 2
+
+
+========================================================================
+AGENDA (PRESENTACIÓN)
+========================================================================
+
+01  ¿Por qué Python?
+02  Tipos de datos
+03  Operadores
+04  Contenedores de datos
+05  Flujos de control
+06  Funciones
+07  Ejercicios
+
+
+========================================================================
+BLOQUE 01 · ¿POR QUÉ PYTHON?
+========================================================================
+
+Qué es Python
+- Lenguaje interpretado, de múltiples usos, con énfasis en legibilidad.
+- Beginner-friendly: sintaxis cercana al lenguaje natural.
+- Open source: comunidad global y licencia permisiva.
+- Ecosistema: cientos de miles de bibliotecas en PyPI.
+
+Dónde se usa
+- Aplicaciones web: Django, FastAPI, Flask (Instagram, Spotify, Netflix).
+- Apps de escritorio: automatización, scripts internos, GUIs.
+- Análisis de Big Data: Pandas, Polars, PySpark (de CSV a petabytes).
+- Machine Learning: scikit-learn, PyTorch, TensorFlow.
+
+Gráfico (Chart.js) · Uso estimado por dominio (ilustrativo)
+- Web 78 · Datos/BI 92 · ML/IA 88 · Automatización 70 · Ciencia 65
+
+Dato curioso
+- Python es el lenguaje más usado en Stack Overflow desde 2022.
+- También lidera el índice TIOBE en 2024-2025.
+- Idea: no es solo popularidad; es el puente entre negocio, ciencia e ingeniería.
+
+Gráfico (Plotly) · Popularidad TIOBE (índice aproximado 2015-2025)
+- Tendencia al alza sostenida (aprox. 3.8% en 2015 → 18.5% en 2025).
+
+Historia
+- 1991: primera versión pública (Python 0.9).
+- Autor: Guido van Rossum (Países Bajos); hobby de Navidad 1989.
+- Slogan original: “Computer Programming for Everybody”.
+- Gobierno: de BDFL a Steering Council electo (PEP 13).
+
+Línea de influencia (De Fortran a Python)
+- 1957 Fortran — cómputo científico temprano
+- 1965 ALGOL — estructura y bloques
+- 1969 SETL — expresividad de alto nivel
+- 1987 ABC — legibilidad (influencia directa)
+- 1991 Python — práctico, accesible, comunitario
+- Fun fact: el nombre viene de Monty Python’s Flying Circus, no de la serpiente.
+
+Características del lenguaje
+- Alto nivel: abstrae la máquina; se piensa en el problema.
+- Dinámicamente tipado: tipos en tiempo de ejecución.
+- Interpretado: ideal para exploración.
+- Multiparadigma: imperativo, OOP, funcional.
+- Open source: ~140k+ paquetes en PyPI.
+- Multiplataforma: Windows, macOS, Linux, cloud.
+
+¿Por qué Python en este curso?
+- Sintaxis natural → menos fricción al aprender.
+- Ecosistema de datos → Pandas y NumPy listos.
+- Prototipado rápido → validar hipótesis en minutos.
+- Transferible a producción → APIs y pipelines.
+- En clase: Jupyter / Google Colab. Prioridad: claridad y exploración.
+
+The Zen of Python (Tim Peters)
+- “Beautiful is better than ugly. Explicit is better than implicit.
+  Simple is better than complex.”
+
+
+========================================================================
+BLOQUE 00 DEL NOTEBOOK · USO Y ESTILO
+========================================================================
+
+(Este bloque está en el notebook; la presentación lo reparte en varias diapositivas.)
+
+Principios
+- import this  → imprime el Zen of Python.
+
+Estructura típica de un script
+1) imports arriba
+2) funciones al medio
+3) flujo de ejecución abajo (if __name__ == "__main__")
+
+Convenciones
+- Indentación consistente (PEP 8 sugiere 4 espacios). Preferir código plano
+  a anidar demasiados ifs.
+- Variables en snake_case (cantidad, precio_neto).
+- Constantes en MAYÚSCULAS (NOMBRE_PAIS, IGV = 0.18).
+- Python es case-sensitive: x y X son variables distintas.
+
+Ser “pythonic”
+- EAFP: Easier to Ask Forgiveness than Permission.
+- Condiciones planas en vez de ifs anidados.
+- Indentación consistente.
+- PEP 8 es el nombre oficial del estilo. “Pythonic” = código legible que
+  aprovecha las fortalezas del lenguaje.
+
+
+========================================================================
+BLOQUE 02 · TIPOS DE DATOS
+========================================================================
+
+Familias
+- Números: int · float · complex     Ej. 10, 23.3     Conteos, montos, ratios
+- Booleanos: True · False            Ej. edad >= 18   Decisiones y filtros
+- Texto: str                         Ej. "hola"       Nombres, códigos, mensajes
+- Vacío: None                        Ej. alumno = None  Ausencia intencional
+
+En el notebook también se introducen ya los contenedores
+- dict: persona con nombre, edad, habilitado y dni anidado
+- list, tuple, set, frozenset
+- Quitar duplicados: list(set(lista))
+- Desempaquetamiento de tuplas: a, b = crear_coordenadas(12)
+
+Casting (convertir entre tipos)
+- float(10)     → 10.0     Siempre seguro
+- int(99.9)     → 99       Trunca, no redondea
+- str(32)       → "32"     Necesario para concatenar
+- int("42")     → 42       Falla si el texto no es numérico
+- Truco: "ABC" + 123 falla. Usar "ABC" + str(123) o f"ABC{123}".
+
+Modelo mental · una variable es una etiqueta
+- No “guarda el número”: apunta a un objeto. Por eso type() e id() importan.
+- type(x) — ¿qué es? Int vs float vs str cambia sumas y filtros.
+- x is None — dato ausente a propósito.
+- a is b — ¿mismo objeto? Mutar una lista puede mutar “otra”.
+- Hábito: si algo se ve bien y falla, imprime type(x) y un ejemplo del valor.
+
+Errores que vas a ver (léelos, no los temas)
+- TypeError   "10" + 1        → casting int/str
+- ValueError  int("hola")     → validar o limpiar el texto
+- NameError   variable no def → typo o celda no ejecutada
+- IndexError  lista[99]       → chequear len() antes
+- Traceback: la última línea es el tipo; arriba está archivo y número de línea.
+
+
+========================================================================
+BLOQUE 03 · OPERADORES
+========================================================================
+
+Familias
+- Aritméticos: calculan un valor nuevo. Retornan un número (u otro operando).
+- Comparación: preguntan una relación. Retornan True o False.
+- Lógicos: combinan condiciones (and, or, not). Retornan True o False.
+- Identidad / pertenencia: is (misma referencia) · in (está dentro).
+
+Aritméticos
+  +   suma              1 + 4      → 5
+  -   resta             1 - 4      → -3
+  *   multiplicación    1 * 4      → 4
+  /   división          100 / 3    → 33.333…
+  //  división entera   100 // 3   → 33
+  %   módulo (residuo)  12 % 5     → 2
+  **  potencia          2 ** 3     → 8
+- No existe x++. Usar x += 1. También: -=, *=, //=.
+
+Comparación
+  ==   ¿iguales en valor?     1 == 1       → True
+  !=   ¿distintos?            "a" != "b"   → True
+  > <  mayor / menor          3 > 10       → False
+  >= <=  mayor o igual / menor o igual
+- Clave: = asigna. == compara. Mezclarlos es el error #1 de principiantes.
+
+Lógicos e identidad
+  and   ambas deben ser True     x > 0 and x < 10
+  or    basta con una True       es_vip or monto > 100
+  not   invierte el booleano     not activo
+  is    ¿misma referencia?       y is None
+  in    ¿está contenido?         "jose" in nombres
+- Par/impar: "par" if x % 2 == 0 else "impar"
+
+Del negocio al código
+- VIP o ticket > 100     → es_vip or monto > 100
+- Edad entre 18 y 65     → 18 <= edad <= 65
+- País en lista          → pais in habilitados
+- No está dado de baja   → not baja
+- Puente a Pandas: las mismas preguntas son filtros de tabla.
+
+En el notebook (operadores y texto)
+- Concatenación de listas, tuplas y strings.
+- f-strings (forma preferida): f"mi nombre es {nombre}"
+- Plural condicional en f-string.
+- Asignación múltiple: nombre, apellido, edad = "jose", "naranjo", 32
+- int(round(99.9, 0)) cuando sí se quiere redondear.
+
+
+========================================================================
+MANEJO DE MEMORIA (NOTEBOOK · NO ES UN BLOQUE NOMBRADO EN LA AGENDA)
+========================================================================
+
+Presentación: “Referencias vs copias”
+- == compara valor; is compara identidad.
+- Con mutables, b = a comparte el objeto.
+- a.copy() crea una copia independiente.
+
+Notebook
+- Enteros pequeños pueden compartir referencia (x is y a veces True).
+- Dos listas con el mismo contenido: l1 == l2 es True, l1 is l2 es False.
+- id(l1) e id(l2) son distintos.
+- Antipatrón: mutar a través de un alias y creer que el original no cambia.
+
+
+========================================================================
+BLOQUE 04 · CONTENEDORES
+========================================================================
+
+Gráfico (Chart.js) · Frecuencia relativa típica en scripts de análisis (ilustrativo)
+- list 42% · dict 35% · tuple 15% · set 8%
+
+Tipo     Propiedades                         ¿Cuándo usarlo?
+list     Ordenada, mutable, duplicados OK    Secuencias que cambian
+tuple    Ordenada, inmutable                 Coordenadas, retornos fijos
+set      Únicos, sin orden garantizado       Deduplicar, uniones/intersecciones
+dict     Llave → valor                       Registros, JSON, lookups O(1)
+
+¿Cuál contenedor uso?
+- Orden y poder cambiar     list     ventas del día, filas crudas
+- Registro fijo (x, y)      tuple    coordenada, par (lat, lon)
+- Únicos / intersección     set      clientes campaña A ∩ B
+- Buscar por clave          dict     SKU → precio, JSON de API
+- Puente: un DataFrame ≈ dict de columnas + índice.
+
+Listas · métodos que más se usan
+- append(x)     agrega al final
+- insert(i, x)  inserta en índice
+- pop(i)        quita por índice
+- sort()        ordena in-place (reverse=True para descendente)
+- l[a:b]        slice; b es excluyente. l[1:3] → índices 1 y 2
+- Antipatrón: l = l.append(1) deja l = None. append muta y no retorna la lista.
+- Notebook: remove(valor), copy() + sort() para no mutar el original.
+
+Tuplas (notebook)
+- (1, 2, 3)  ·  tuple([1, 2, 3])  ·  (101,)  (coma obligatoria para 1 elemento)
+- t1[0] = 10 → TypeError (inmutables)
+- len(t1), list(t1)
+
+Conjuntos / sets (notebook)
+- add, remove
+- intersection, difference, issubset
+- Ejemplo frutas ∩ vegetales (tomates)
+
+Diccionarios (notebook)
+- {"x": 1}  ·  dict(x=1, y=2)  ·  dict(zip(llaves, valores))
+- .get("nombre") vs d["edad"]
+- Recorrer con .items()
+- Lista de dicts + suma/promedio de un campo (comprensión de generador)
+
+
+========================================================================
+BLOQUE 05 · FLUJOS DE CONTROL
+========================================================================
+
+Familias
+- Condicionales: if / elif / else · match / case
+  Idea: ramificar según una pregunta True/False
+- Bucles: for · while · break / continue
+  Idea: repetir sobre una colección o mientras valga una condición
+- Preferir enumerate a range(len(...))
+
+Condicionales (notebook)
+- Cascada if / elif / else sobre un monto.
+- match / case (Python 3.10+), incluyendo case "x" | "y" y case _.
+- Pertenencia: if "parque" in texto.
+
+Bucles (notebook)
+- while con contador.
+- for + continue (saltar un valor).
+- map + lambda: list(map(lambda n: n + 100, [1, 2, 3]))
+
+Manejo de errores · EAFP
+- try / except ZeroDivisionError / except TypeError
+- Pythonic: intentar la operación y capturar el error, en vez de validar
+  todo de antemano (Easier to Ask Forgiveness than Permission).
+- Notebook también captura Exception genérico como último recurso.
+
+
+========================================================================
+BLOQUE 06 · FUNCIONES
+========================================================================
+
+Ejemplo de la presentación
+  def crear_boleta(nombre, monto, doc="dni"):
+      return {"nombre": nombre, "monto": float(monto), "doc": doc}
+
+  crear_boleta("jose", 100)
+  crear_boleta("camila", 23, "ruc")
+
+Ideas clave
+- Defaults: doc="dni" es opcional.
+- Tipado: def suma(a: int, b: int) -> int
+- Lambdas: lambda a, b: a + b para casos cortos.
+- Sin return explícito → None.
+
+Una función = una responsabilidad
+- Bien: nombre que se lee (semanas_dias); recibe datos y retorna.
+- Mal: f / proc / aux2; solo print; copiar-pegar el mismo bloque.
+- En data: limpiar_fecha, to_soles, es_outlier — mañana se aplican a columnas.
+
+
+========================================================================
+TEMAS EXTRA DEL NOTEBOOK (NO ESTÁN EN LA AGENDA DE DIAPOSITIVAS)
+========================================================================
+
+Cadenas (strings)
+- len, replace, find (índice base 0; -1 si no existe)
+- split y join
+- Formato numérico: f"Balance: ${balance:.2f}"
+- JSON ↔ dict: json.dumps / json.loads (null de JSON ↔ None de Python)
+
+Expresiones regulares (módulo re)
+- Validar correo: r"\S+@\S+\.\S+"
+- Validar teléfono: r"\+?[1-9][0-9]{7,14}"
+- re.match para validar; re.findall para extraer del texto
+
+Bibliotecas
+- import datetime as dt
+- from datetime import timedelta
+- Preferir import del módulo (evita colisión de nombres).
+- Evitar: from datetime import *
+
+Clases (intro OOP)
+- class Koopa con __init__ y método saludar
+- class Magikoopa(Koopa) con super().__init__
+- Instanciar y llamar métodos
+
+Streams y parsing (preview)
+- with open(..., encoding="utf-8") para leer líneas
+- json.load para JSON → dict
+- Celdas comentadas: se profundiza al leer archivos en la clase 2
+
+
+========================================================================
+BLOQUE 07 · EJERCICIOS
+========================================================================
+
+Implementar las funciones en codigo.ipynb (están como TODO / NotImplementedError).
+
+01  semanas_dias(dias)
+    Convierte días en semanas y días.
+    Ejemplo: 10 → "1 semana y 3 días"
+    Pista: usar // y %
+
+02  tope_mil(x1, x2)
+    Producto si el producto es < 1000; si no, la suma.
+    Ejemplos: (2, 4) → 8 · (200, 10) → 210
+
+03  letras_impares(palabra)
+    Caracteres en índices pares (0, 2, 4…) — el nombre dice “impares”
+    pero el enunciado y el ejemplo usan posiciones 0-index pares.
+    Ejemplo: "hola" → "hl" · "analytics" → "aayis"
+    Pista: slicing palabra[::2]
+
+Cómo atacarlos (notebook)
+1) Ejemplo en papel. 2) Implementar. 3) Probar bordes (0, 7).
+Si falla, última línea del traceback.
+
+
+========================================================================
+CIERRE
+========================================================================
+
+Próxima sesión: Pandas
+Lectura · selecciones · filtros · agrupaciones · insights
+
+Dudas: chat grupal de la sesión o contacto del profesor.
